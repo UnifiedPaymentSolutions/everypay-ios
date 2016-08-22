@@ -61,7 +61,14 @@
     if([self isBrowserFlowEndUrlWithUrlString:urlString]){
         [self setIsBrowserFlowEndUrlReached:YES];
         if ([self isBrowerFlowSuccessfulWithUrlString:urlString]) {
-            NSString *urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefix withString:@""];
+            NSString *urlWithoutPrefix = [[NSString alloc]init];
+            if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
+                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixStating withString:@""];
+            } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
+                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixDemo withString:@""];
+            }  else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {
+                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixLive withString:@""];
+            }
             NSString *paymentReference = [urlWithoutPrefix componentsSeparatedByString:@"?"][0];
             if (self.delegate) {
                 [self.delegate authenticationSucceededWithPayentReference:paymentReference hmac:_hmac];
@@ -81,8 +88,16 @@
 }
 
 - (BOOL)isBrowerFlowSuccessfulWithUrlString:(NSString *)urlString {
-   return [urlString hasPrefix:kBrowserFlowEndURLPrefix] && [urlString containsString:kPaymentStateAuthorised];
-}
+    if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
+        return [urlString hasPrefix:kBrowserFlowEndURLPrefixStating] && [urlString containsString:kPaymentStateAuthorised];
+    } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
+        return [urlString hasPrefix:kBrowserFlowEndURLPrefixDemo] && [urlString containsString:kPaymentStateAuthorised];
+    } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {
+        return [urlString hasPrefix:kBrowserFlowEndURLPrefixLive] && [urlString containsString:kPaymentStateAuthorised];
+    } else {
+        return NO;
+    }
+   }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     if(![parent isEqual:self.parentViewController]) {

@@ -145,7 +145,7 @@
 
 - (void)showChooseAccountActionSheetWithCard:(EPCard *)card{
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Choose account" message:@"Choose accountID for non-3Ds or 3Ds flow" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Choose account" message:@"Choose accountID for 3Ds or non-3Ds flow" preferredStyle:UIAlertControllerStyleActionSheet];
         if ([self.accountIdChoices count] == 0) {
             [self showResultAlertWithTitle:@"No accounts" message:@"You haven't provided any accounts"];
             return;

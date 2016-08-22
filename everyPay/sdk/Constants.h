@@ -26,9 +26,12 @@ extern NSString *const kEveryPayApiDemo;
 extern NSString *const kMerchantApiDemo;
 extern NSString *const kEveryPayApiStagingHost;
 extern NSString *const kEveryPayApiDemoHost;
+extern NSString *const kEveryPayApiLiveHost;
 
 // browserflow urls
-extern NSString *const kBrowserFlowEndURLPrefix;
+extern NSString *const kBrowserFlowEndURLPrefixStating;
+extern NSString *const kBrowserFlowEndURLPrefixDemo;
+extern NSString *const kBrowserFlowEndURLPrefixLive;
 extern NSString *const kBrowserFlowInitURL;
 // Json keys
 extern NSString *const kKeyAccountId;
