@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "everyPay-ios"
-  s.version      = "0.0.6"
+  s.version      = "1.0.4"
   s.summary      = "iOS SDK for EveryPay service."
 
   s.description  = <<-DESC
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/UnifiedPaymentSolutions/everypay-ios"
   s.license      = "Apache License, Version 2.0"
   s.author             = { "Lauri Eskor" => "lauri.eskor@lab.mobi" }
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/UnifiedPaymentSolutions/everypay-ios.git", :tag => "#{s.version}" }
   s.source_files  = "everyPay/sdk/*{m,h}", "everyPay/sdk/api/*{m,h}", "everyPay/sdk/category/*{m,h}", "everyPay/sdk/model/*{m,h}", "everyPay/sdk/utility/*{m,h}", "everyPay/sdk/viewController/*{m,h}"
   s.resources    = "everyPay/sdk/viewController/*.{xib}", "everyPay/sdk/Base.lproj/*.strings"
