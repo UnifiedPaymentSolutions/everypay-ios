@@ -8,7 +8,6 @@
 
 #import "EPMerchantApi.h"
 #import "DeviceInfo.h"
-#import "ViewController.h"
 #import "EPSession.h"
 
 NSString *const kGetMerchantInfoPath = @"/merchant_mobile_payments/generate_token_api_parameters";
