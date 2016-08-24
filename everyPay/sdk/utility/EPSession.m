@@ -15,8 +15,9 @@
     static EPSession *sharedInstance = nil;
     dispatch_once(&pred, ^{
         sharedInstance = [[self alloc] init];
-        });
+    });
     return sharedInstance;
 }
 
 @end
+
