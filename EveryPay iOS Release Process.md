@@ -3,6 +3,7 @@
 - A. Prerequisites
 - B. Getting SDK to git repo and to cocoaPods
 - C. Testing cocoaPods dependency
+- D. Standard troubleshooting questions
 
 
 ## A. Prerequisites
@@ -32,5 +33,9 @@ Additional labels for pre-release and build metadata are available as extensions
 - 2) Run `pod update` in folder where Podfile is.
 - 3) Test the flows in test application.
 
+## D. Standard troubleshooting questions
 
-
+- 1) What version of SDK are you using ? 
+- 2) Is dependency strict or not ? 
+- 3) Are you receiving any callback from Every Pay server ?
+- 4) Could you send us logs about the issue,if you have any.
