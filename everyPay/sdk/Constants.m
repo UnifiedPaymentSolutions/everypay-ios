@@ -24,6 +24,7 @@ NSString *const kBrowserFlowEndURLPrefixLive = @"https://gw.every-pay.com/authen
 NSString *const kBrowserFlowInitURL = @"https://gw-staging.every-pay.com/authentication3ds/new";
 NSString *const kPaymentState = @"payment_state";
 NSString *const kAuthorised = @"authorised";
+NSString *const kFailed = @"failed";
 NSString *const kPaymentStateAuthorised = @"payment_state=authorised";
 NSString *const kPaymentStateWaiting3DsResponse = @"waiting_for_3ds_response";
 

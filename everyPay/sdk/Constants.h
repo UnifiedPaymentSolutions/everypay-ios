@@ -61,3 +61,4 @@ extern NSString *const kKeyError;
 extern NSString *const kKeyMessage;
 extern NSString *const kKeyCode;
 extern NSString *const kAuthorised;
+extern NSString *const kFailed;

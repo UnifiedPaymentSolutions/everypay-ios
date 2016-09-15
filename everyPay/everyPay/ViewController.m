@@ -58,18 +58,19 @@
     [self appendProgressLog:@"Save card details with EvertPay API..."];
     [EPApi sendCard:card withMerchantInfo:merchantInfo withSuccess:^(NSDictionary *responseDictionary) {
         NSString *paymentState = [responseDictionary objectForKey:kPaymentState];
-        if([paymentState isEqualToString:kAuthorised] && [accountId isEqualToString:@"EUR1"]){
-            NSString *token = [responseDictionary objectForKey:kKeyEncryptedToken];
-            [self appendProgressLog:@"Done"];
-            [self payWithToken:token andMerchantInfo:merchantInfo];
-        } else if ([paymentState isEqualToString:kPaymentStateWaiting3DsResponse] && [accountId isEqualToString:@"EUR3D1"]) {
+        if ([paymentState isEqualToString:kPaymentStateWaiting3DsResponse] && [accountId containsString:@"3D"]) {
             [self appendProgressLog:@"Done"];
             NSString *paymentReference = [responseDictionary objectForKey:kKeyPaymentReference];
             NSString *secureCodeOne = [responseDictionary objectForKey:kKeySecureCodeOne];
             NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
             [self appendProgressLog:@"Starting 3DS authentication..."];
             [self startWebViewWithPaymentReference:paymentReference secureCodeOne:secureCodeOne hmac:hmac];
-        } else {
+        }
+        else if(![paymentState isEqualToString:kFailed]){
+            NSString *token = [responseDictionary objectForKey:kKeyEncryptedToken];
+            [self appendProgressLog:@"Done"];
+            [self payWithToken:token andMerchantInfo:merchantInfo];
+        }  else {
             [self showAlertWithError:[NSError errorWithDomain:@"Unknown account id or payment state" code:1001 userInfo:nil]];
         }
     } andError:^(NSArray *errors) {
