@@ -22,6 +22,22 @@ The payment process happens in four steps.
 
 Example implementation is provided for steps 2 and 4, even if they are likely to be replaced in most apps. EPCardInfoViewController can be replaced or modified for step 1 to match your branding.
 
+NB! You have to add following item to your Info.plist file, in order for SDK to work. Otherwise ATS will complain about TLS handshake :
+```xml
+ <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>3dsecurempi.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
+            </dict>
+        </dict>
+    </dict>
+```
 ## Requirements
 
 iOS 8 or later is required for NSURLSession that is used in everyPay SDK.
