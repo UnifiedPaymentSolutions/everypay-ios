@@ -9,13 +9,13 @@
 #import "Constants.h"
 
 NSString *const kEveryPayApiStaging = @"https://gw-staging.every-pay.com";
-NSString *const kEveryPayApiLive = @"https://gw.every-pay.com";
+NSString *const kEveryPayApiLive = @"https://gw.every-pay.eu";
 NSString *const kMercantApiStaging = @"https://igwshop-staging.every-pay.com";
 NSString *const kEveryPayApiDemo = @"https://gw-demo.every-pay.com";
 NSString *const kMerchantApiDemo = @"https://igwshop-demo.every-pay.com";
 NSString *const kEveryPayApiStagingHost = @"gw-staging.every-pay.com";
 NSString *const kEveryPayApiDemoHost = @"gw-demo.every-pay.com";
-NSString *const kEveryPayApiLiveHost = @"gw.every-pay.com";
+NSString *const kEveryPayApiLiveHost = @"gw.every-pay.eu";
 
 
 NSString *const kBrowserFlowEndURLPrefixStating = @"https://gw-staging.every-pay.com/authentication3ds";

@@ -30,7 +30,7 @@
  Success block will be called with token string, error block will contain array of errors. Array is needed, because there can be multiple errors related to card. For concistency HTTP errors will be wrapped to array as well.
  */
 
-@interface EPApi : NSObject
+@interface EPApi : NSObject<NSURLSessionDelegate>
 /** 
  Send card and merchant data to EveryPay server. 
  Merchant info is a dictionary composed of keys defined as string constants:
@@ -51,9 +51,10 @@
  @param merchantInfo is dictionary containing merchand EveryPay username, account and security info.
  
  */
-+ (void)sendCard:(EPCard *)card withMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure;
 
-+ (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
+- (void)sendCard:(EPCard *)card withMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure;
+
+- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
                                                             hmac:(NSString *)hmac
                                                       apiVersion:(NSString *)apiVersion
                                                      withSuccess:(DictionarySuccessBlock)success
