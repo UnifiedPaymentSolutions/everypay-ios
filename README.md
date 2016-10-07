@@ -22,6 +22,22 @@ The payment process happens in four steps.
 
 Example implementation is provided for steps 2 and 4, even if they are likely to be replaced in most apps. EPCardInfoViewController can be replaced or modified for step 1 to match your branding.
 
+NB! You have to add following item to your Info.plist file, in order for SDK to work. Otherwise ATS will complain about TLS handshake :
+```xml
+ <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>3dsecurempi.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSTemporaryExceptionMinimumTLSVersion</key>
+                <string>TLSv1.0</string>
+            </dict>
+        </dict>
+    </dict>
+```
 ## Requirements
 
 iOS 8 or later is required for NSURLSession that is used in everyPay SDK.
@@ -96,25 +112,27 @@ timestamp = 1440506937;
 ```
 
 ```objectivec
-[EPApi sendCard:card withMerchantInfo:merchantInfo withSuccess:^(NSString *token) { 
-    NSString *paymentState = [responseDictionary objectForKey:kPaymentState];
-    if([paymentState isEqualToString:kAuthorised] && [accountId isEqualToString:@"EUR1"]){
-    	NSString *token = [responseDictionary objectForKey:kKeyEncryptedToken];
-        [self appendProgressLog:@"Done"];
-        [self payWithToken:token andMerchantInfo:merchantInfo];
-    } else if ([paymentState isEqualToString:kPaymentStateWaiting3DsResponse] && [accountId isEqualToString:@"EUR3D1"]) {
-        [self appendProgressLog:@"Done"];
-        NSString *paymentReference = [responseDictionary objectForKey:kKeyPaymentReference];
-        NSString *secureCodeOne = [responseDictionary objectForKey:kKeySecureCodeOne];
-        NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
-        [self appendProgressLog:@"Starting 3DS authentication..."];
-        [self startWebViewWithPaymentReference:paymentReference secureCodeOne:secureCodeOne hmac:hmac];
-    } else {
-        [self showAlertWithError:[NSError errorWithDomain:@"Unknown account id or payment state" code:1001 userInfo:nil]];
-    }
+[self.epApi sendCard:card withMerchantInfo:merchantInfo withSuccess:^(NSDictionary *responseDictionary) {
+        NSString *paymentState = [responseDictionary objectForKey:kPaymentState];
+        if([paymentState isEqualToString:kPaymentStateWaiting3DsResponse] && [accountId containsString:@"3D"]){
+            [self appendProgressLog:@"Done"];
+            NSString *paymentReference = [responseDictionary objectForKey:kKeyPaymentReference];
+            NSString *secureCodeOne = [responseDictionary objectForKey:kKeySecureCodeOne];
+            NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
+            [self appendProgressLog:@"Starting 3DS authentication..."];
+            [self startWebViewWithPaymentReference:paymentReference secureCodeOne:secureCodeOne hmac:hmac];
+        } else if (![paymentState isEqualToString:kFailed]) {
+            NSString *token = [responseDictionary objectForKey:kKeyEncryptedToken];
+            [self appendProgressLog:@"Done"];
+            [self payWithToken:token andMerchantInfo:merchantInfo];
+
+        } else {
+            [self showAlertWithError:[NSError errorWithDomain:@"Unknown account id or payment state" code:1001 userInfo:nil]];
+        }
     } andError:^(NSArray *errors) {
         [self showAlertWithError:[errors firstObject]];
     }];
+
 ```
 
 Success block will be called with encrypted token if it's non-3Ds payment. For 3Ds payment order_reference and payment_state are returned, failure block will contain array of NSError objects. Both blocks will be called on main thread.
