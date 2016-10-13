@@ -63,7 +63,7 @@
         if ([self isBrowerFlowSuccessfulWithUrlString:urlString]) {
             NSString *urlWithoutPrefix = [[NSString alloc]init];
             if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
-                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixStating withString:@""];
+                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixStaging withString:@""];
             } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
                 urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixDemo withString:@""];
             }  else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {
@@ -89,7 +89,7 @@
 
 - (BOOL)isBrowerFlowSuccessfulWithUrlString:(NSString *)urlString {
     if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
-        return [urlString hasPrefix:kBrowserFlowEndURLPrefixStating] && [urlString containsString:kPaymentStateAuthorised];
+        return [urlString hasPrefix:kBrowserFlowEndURLPrefixStaging] && [urlString containsString:kPaymentStateAuthorised];
     } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
         return [urlString hasPrefix:kBrowserFlowEndURLPrefixDemo] && [urlString containsString:kPaymentStateAuthorised];
     } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {

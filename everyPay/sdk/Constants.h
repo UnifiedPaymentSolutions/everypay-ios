@@ -29,7 +29,7 @@ extern NSString *const kEveryPayApiDemoHost;
 extern NSString *const kEveryPayApiLiveHost;
 
 // browserflow urls
-extern NSString *const kBrowserFlowEndURLPrefixStating;
+extern NSString *const kBrowserFlowEndURLPrefixStaging;
 extern NSString *const kBrowserFlowEndURLPrefixDemo;
 extern NSString *const kBrowserFlowEndURLPrefixLive;
 extern NSString *const kBrowserFlowInitURL;
