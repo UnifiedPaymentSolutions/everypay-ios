@@ -11,7 +11,15 @@
 /**
  Define constants for global use
  */
-
+#ifdef __OBJC__
+#   ifndef EPLog
+#       ifdef DEBUG
+#           define EPLog(format, ...) NSLog(format, ##__VA_ARGS__)
+#       else
+#           define EPLog(format, ...) (void)0
+#       endif
+#   endif
+#endif
 // Network return blocks
 typedef void (^DictionarySuccessBlock)(NSDictionary *dictionary);
 typedef void (^StringSuccessBlock)(NSString *string);

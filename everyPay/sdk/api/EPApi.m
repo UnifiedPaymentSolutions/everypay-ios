@@ -11,6 +11,7 @@
 #import "DeviceInfo.h"
 #import "ErrorExtractor.h"
 #import "EPSession.h"
+#import "EPCard.h"
 
 NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
@@ -53,17 +54,17 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
     
-    NSLog(@"Start request %@\n", request);
-    NSLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
+    EPLog(@"Start request %@\n", request);
+    EPLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
     
     NSURLSessionUploadTask *uploadTask = [self.urlSession uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSLog(@"Request completed with response\n %@", response);
+        EPLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
             NSError *jsonParsingError;
             NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-            if (error) {
+            if (jsonParsingError) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     failure(@[error]);
                 });
@@ -71,7 +72,7 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSArray *errors = [ErrorExtractor errorsFromDictionary:responseDictionary];
                     if ([errors count] > 0) {
-                        NSLog(@"Error processing payment: %@", errors);
+                        EPLog(@"Error processing payment: %@", errors);
                         failure(errors);
                     } else {
                         /** 
@@ -91,7 +92,7 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                             }
 
                          */
-                        NSLog(@"Encrypted payment instruments response %@", responseDictionary);
+                        EPLog(@"Encrypted payment instruments response %@", responseDictionary);
                         NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }
@@ -114,13 +115,13 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[components URL]];
     request.HTTPMethod = @"GET";
     NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
-        NSLog(@"Request completed with response\n %@", response);
+        EPLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
             NSError *jsonParsingError;
             NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-            if (error) {
+            if (jsonParsingError) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     failure(@[error]);
                 });
@@ -128,10 +129,10 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSArray *errors = [ErrorExtractor errorsFromDictionary:responseDictionary];
                     if ([errors count] > 0) {
-                        NSLog(@"Error processing payment: %@", errors);
+                        EPLog(@"Error processing payment: %@", errors);
                         failure(errors);
                     } else {
-                        NSLog(@"Encrypted payment instruments  confirmed response %@", responseDictionary);
+                        EPLog(@"Encrypted payment instruments  confirmed response %@", responseDictionary);
                         NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }

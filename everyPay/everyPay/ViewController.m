@@ -12,6 +12,7 @@
 #import "EPSession.h"
 
 #import "NSDate+Additions.h"
+#import "EPMerchantApi.h"
 
 @interface ViewController ()
 
@@ -128,13 +129,13 @@
 }
 - (void)authenticationFailedWithErrorCode:(NSInteger)errorCode {
     [self.navigationController popToViewController:self animated:YES];
-    NSLog(@"payment Failed with code %ld", (long)errorCode);
+    EPLog(@"payment Failed with code %ld", (long)errorCode);
     [self showAlertWithError:[NSError errorWithDomain:@"3Ds authentication failed" code:errorCode userInfo:nil]];
 }
 
 - (void)authenticationSucceededWithPayentReference:(NSString *)paymentReference hmac:(NSString *)hmac {
     [self.navigationController popToViewController:self animated:YES];
-    NSLog(@"payment succeeded with reference %@", paymentReference);
+    EPLog(@"payment succeeded with reference %@", paymentReference);
     [self appendProgressLog:@"Done"];
     [self appendProgressLog:@"Confirming 3DS with Everypay server ...."];
     [self.epApi encryptedPaymentInstrumentsConfirmedWithPaymentReference:paymentReference hmac:hmac apiVersion:_apiVersion withSuccess:^(NSDictionary *dictionary) {

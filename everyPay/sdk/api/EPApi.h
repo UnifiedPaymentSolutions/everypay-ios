@@ -8,12 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
-#import "EPCard.h"
 
-// For easy include to projects
-#import "EPCardInfoViewController.h"
-#import "EPMerchantApi.h"
-
+@class EPCard;
 /** 
  EPApi contains methods needed for sending credit card data and merchant information to EveryPay server. Server will send back an encrypted token that can be used later for payment request to merchant server.
  
