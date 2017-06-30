@@ -40,8 +40,6 @@ NSString *const kSendPaymentPath = @"/merchant_mobile_payments/pay";
     EPLog(@"Header request %@\n", request.allHTTPHeaderFields);
 
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
-    requestDictionary[self.apiVersion] = kApiVersion;
-    NSData *requestData = [EPMerchantApi convertToDataWithDictionary:requestDictionary];
     EPLog(@"Request body %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
 
 //    NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

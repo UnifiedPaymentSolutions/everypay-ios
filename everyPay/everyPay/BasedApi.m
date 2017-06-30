@@ -30,6 +30,8 @@ NSString *const kApiVersion = @"api_version";
 - (void)execute:(NSMutableURLRequest *)request parameters:(NSDictionary *)parameters completionHandler:(completionHandler)handler {
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     requestDictionary[kApiVersion] = self.apiVersion;
+    if (parameters)
+        [requestDictionary addEntriesFromDictionary:parameters];
     NSData *requestData = [self convertToDataWithDictionary:requestDictionary];
     EPLog(@"Request body %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
     NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -40,14 +42,13 @@ NSString *const kApiVersion = @"api_version";
                 return;
             }
             NSError *jsonParsingError;
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+            NSDictionary *responseDictionary = (NSDictionary *) [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
             if (jsonParsingError) {
                 handler(response, nil, jsonParsingError);
                 return;
             }
             EPLog(@" Get Merchant Data Response body %@", responseDictionary);
-            success(responseDictionary);
-
+            handler(response, responseDictionary, nil);
         });
     }];
 
