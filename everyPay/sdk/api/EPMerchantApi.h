@@ -8,16 +8,19 @@
 
 #import "BasedApi.h"
 
+@class EPMerchantInfo;
+
 /** 
  Sample implementations of client <-> merchant server communication.
  */
 
 @interface EPMerchantApi : BasedApi
+- (id)initWithURL:(NSURL *)url;
 
-/** 
+/**
  Get merchant EveryPay user and communication security data.
  */
-+ (void)getMerchantDataWithSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure apiVersion:(NSString *)apiVersion accountId:(NSString *)accountId;
+- (void)getMerchantDataWithSuccess:(void (^)(EPMerchantInfo *))successCallback failure:(void (^)(NSError *))failureCallback;
 
 /** 
  Send payment to merchant server
@@ -26,6 +29,6 @@
  @param merchantInfo dictionary containing merchant info data. See EPApi documentation for exact elements that must be there.
  */
 
-+ (void)sendPaymentWithToken:(NSString *)token andMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure;
+- (void)sendPaymentWithToken:(NSString *)token andMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure;
 
 @end

@@ -9,10 +9,14 @@
 #import "ViewController.h"
 #import "EPApi.h"
 #import "Constants.h"
-#import "EPSession.h"
+
 
 #import "NSDate+Additions.h"
 #import "EPMerchantApi.h"
+
+NSString *const kMerchantApiDemo = @"https://igwshop-demo.every-pay.com";
+NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
+
 
 @interface ViewController ()
 
@@ -32,11 +36,19 @@
     [self setApiVersion:@"2"];
     [self setAccountIdChoices:@[@"EUR3D1", @"EUR1"]];
     [self setEpApi:[[EPApi alloc] init]];
+
+
+    EPMerchantApi *epMerchantApi = [[EPMerchantApi alloc] initWithURL:[NSURL URLWithString:kMerchantApiDemo]];
+    [epMerchantApi getMerchantDataWithSuccess:^(EPMerchantInfo *merchantInfo) {
+
+    }                                 failure:^(NSError *error) {
+
+    }];
     /*
      Dictionary structure:
      key -> [merchantApiBaseUrl, EveryPayApiBaseUrl, EveryPayApiHost]
      */
-    NSArray *stagingArray = @[kMercantApiStaging, kEveryPayApiStaging, kEveryPayApiStagingHost];
+    NSArray *stagingArray = @[kMerchantApiStaging, kEveryPayApiStaging, kEveryPayApiStagingHost];
     NSArray *demoArray = @[kMerchantApiDemo, kEveryPayApiDemo, kEveryPayApiDemoHost];
     NSMutableDictionary *baseUrlsDictionary = [NSMutableDictionary new];
 

@@ -15,6 +15,11 @@ typedef void (^FailureBlock)(NSError *error);
 typedef void (^ArrayBlock)(NSArray *array);
 
 
+typedef void (^completionHandler)(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSError *error);
+
 @interface BasedApi : NSObject
+- (void)execute:(NSMutableURLRequest *)request parameters:(NSDictionary *)parameters completionHandler:(completionHandler)handler;
+
 @property(nonatomic, readonly) NSString *apiVersion;
+
 @end

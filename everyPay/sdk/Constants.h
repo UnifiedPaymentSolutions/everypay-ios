@@ -24,7 +24,7 @@
 // base urls
 extern NSString *const kEveryPayApiStaging;
 extern NSString *const kEveryPayApiLive;
-extern NSString *const kMercantApiStaging;
+extern NSString *const kMerchantApiStaging;
 extern NSString *const kEveryPayApiDemo;
 extern NSString *const kMerchantApiDemo;
 extern NSString *const kEveryPayApiStagingHost;

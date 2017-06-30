@@ -8,7 +8,6 @@
 
 #import "EPAuthenticationWebViewController.h"
 #import "Constants.h"
-#import "EPSession.h"
 
 @interface EPAuthenticationWebViewController ()
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
@@ -60,7 +59,7 @@
     EPLog(@"url: %@, scheme: %@, relativePath: %@, relativeString: %@", request.URL.absoluteString, request.URL.scheme, request.URL.relativePath, request.URL.relativeString);
     if([self isBrowserFlowEndUrlWithUrlString:urlString]){
         [self setIsBrowserFlowEndUrlReached:YES];
-        if ([self isBrowerFlowSuccessfulWithUrlString:urlString]) {
+        if ([self isBrowserFlowSuccessfulWithUrlString:urlString]) {
             NSString *urlWithoutPrefix = [[NSString alloc]init];
             if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
                 urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixStating withString:@""];
@@ -87,7 +86,7 @@
     return [urlString containsString:kPaymentState];
 }
 
-- (BOOL)isBrowerFlowSuccessfulWithUrlString:(NSString *)urlString {
+- (BOOL)isBrowserFlowSuccessfulWithUrlString:(NSString *)urlString {
     if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
         return [urlString hasPrefix:kBrowserFlowEndURLPrefixStating] && [urlString containsString:kPaymentStateAuthorised];
     } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {

@@ -32,7 +32,6 @@
 		535F0BC41B8C692100DA196C /* EPCardInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 535F0BC21B8C692100DA196C /* EPCardInfoViewController.xib */; };
 		535F0BC61B8C951900DA196C /* stringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC51B8C951900DA196C /* stringTests.m */; };
 		535F0BC81B8C97BD00DA196C /* dateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC71B8C97BD00DA196C /* dateTests.m */; };
-		AEA78A6F1D6D97B400FB923E /* EPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA78A6E1D6D97B400FB923E /* EPSession.m */; };
 		AEFE95391D228CB300A91BF2 /* EPAuthenticationWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEFE95371D228CB300A91BF2 /* EPAuthenticationWebViewController.m */; };
 		AEFE953A1D228CB300A91BF2 /* EPAuthenticationWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEFE95381D228CB300A91BF2 /* EPAuthenticationWebViewController.xib */; };
 /* End PBXBuildFile section */
@@ -92,8 +91,6 @@
 		535F0BC51B8C951900DA196C /* stringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stringTests.m; sourceTree = "<group>"; };
 		535F0BC71B8C97BD00DA196C /* dateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dateTests.m; sourceTree = "<group>"; };
 		535F0BC91B8DC12E00DA196C /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
-		AEA78A6D1D6D97B400FB923E /* EPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPSession.h; path = sdk/utility/EPSession.h; sourceTree = SOURCE_ROOT; };
-		AEA78A6E1D6D97B400FB923E /* EPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPSession.m; path = sdk/utility/EPSession.m; sourceTree = SOURCE_ROOT; };
 		AEFE95361D228CB300A91BF2 /* EPAuthenticationWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPAuthenticationWebViewController.h; path = sdk/viewController/EPAuthenticationWebViewController.h; sourceTree = SOURCE_ROOT; };
 		AEFE95371D228CB300A91BF2 /* EPAuthenticationWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPAuthenticationWebViewController.m; path = sdk/viewController/EPAuthenticationWebViewController.m; sourceTree = SOURCE_ROOT; };
 		AEFE95381D228CB300A91BF2 /* EPAuthenticationWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EPAuthenticationWebViewController.xib; path = sdk/viewController/EPAuthenticationWebViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -232,8 +229,6 @@
 				535F0BBA1B8C43A100DA196C /* DeviceInfo.m */,
 				535F0BBC1B8C5D1900DA196C /* ErrorExtractor.h */,
 				535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */,
-				AEA78A6D1D6D97B400FB923E /* EPSession.h */,
-				AEA78A6E1D6D97B400FB923E /* EPSession.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -383,7 +378,6 @@
 				535F0BB21B8B3CFD00DA196C /* EPApi.m in Sources */,
 				535F0B9D1B8B166C00DA196C /* NSError+Additions.m in Sources */,
 				535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */,
-				AEA78A6F1D6D97B400FB923E /* EPSession.m in Sources */,
 				31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */,
 				318217131125E79EBD845E3A /* BasedApi.m in Sources */,
 			);

@@ -7,12 +7,8 @@
 //
 
 #import "EPApi.h"
-#import "Constants.h"
-#import "DeviceInfo.h"
 #import "ErrorExtractor.h"
-#import "EPSession.h"
 #import "EPCard.h"
-#import "EPMerchantInfo.h"
 
 NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
@@ -30,7 +26,7 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     if (self) {
         NSURLSessionConfiguration *conf = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         conf.TLSMinimumSupportedProtocol = kTLSProtocol11;
-        [self setUrlSession:[NSURLSession sessionWithConfiguration:conf delegate:self delegateQueue:nil]];
+        [self setUrlSession:[NSURLSession sessionWithConfiguration:conf delegate:nil delegateQueue:nil]];
     }
     return self;
 }
@@ -56,6 +52,7 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
 
     EPLog(@"Start request %@\n", request);
+    EPLog(@"Header request %@\n", request.allHTTPHeaderFields);
     EPLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
 
     NSURLSessionUploadTask *uploadTask = [self.urlSession uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -106,15 +103,18 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 }
 
 - (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference hmac:(NSString *)hmac apiVersion:(NSString *)apiVersion withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure {
+    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:hmac];
+    NSURLQueryItem *apiVer = [NSURLQueryItem queryItemWithName:kKeyApiVersion value:apiVersion];
+
     NSURLComponents *components = [NSURLComponents new];
     [components setScheme:@"https"];
     [components setHost:[EPSession sharedInstance].everypayApiHost];
     [components setPath:[NSString stringWithFormat:@"/encrypted_payment_instruments/%@", paymentReference]];
-    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:hmac];
-    NSURLQueryItem *apiVer = [NSURLQueryItem queryItemWithName:kKeyApiVersion value:apiVersion];
     [components setQueryItems:@[mobile3DsHmac, apiVer]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[components URL]];
+
     request.HTTPMethod = @"GET";
+    EPLog(@"Header request %@\n", request.allHTTPHeaderFields);
     NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
         EPLog(@"Request completed with response\n %@", response);
         if (error) {
