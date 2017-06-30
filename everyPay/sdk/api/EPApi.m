@@ -12,12 +12,13 @@
 #import "ErrorExtractor.h"
 #import "EPSession.h"
 #import "EPCard.h"
+#import "EPMerchantInfo.h"
 
 NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
 @interface EPApi ()
 
-@property (nonatomic) NSURLSession *urlSession;
+@property(nonatomic) NSURLSession *urlSession;
 
 @end
 
@@ -47,23 +48,23 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     [merchantDictionary removeObjectForKey:@"http_path"];
     [merchantDictionary removeObjectForKey:@"http_method"];
     [merchantDictionary addEntriesFromDictionary:[card cardInfoDictionary]];
-    
-    
+
+
     NSDictionary *requestDictionary = @{kKeyEncryptedPaymentInstrument: merchantDictionary};
     NSError *jsonConversionError;
 
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
-    
+
     EPLog(@"Start request %@\n", request);
     EPLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
-    
+
     NSURLSessionUploadTask *uploadTask = [self.urlSession uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         EPLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
             NSError *jsonParsingError;
-            NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+            NSDictionary *responseDictionary = (NSDictionary *) [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
             if (jsonParsingError) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     failure(@[error]);
@@ -93,14 +94,14 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
                          */
                         EPLog(@"Encrypted payment instruments response %@", responseDictionary);
-                        NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
+                        NSDictionary *instruments = responseDictionary[kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }
                 });
             }
         }
     }];
-    
+
     [uploadTask resume];
 }
 
@@ -114,13 +115,13 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     [components setQueryItems:@[mobile3DsHmac, apiVer]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[components URL]];
     request.HTTPMethod = @"GET";
-    NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
+    NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData *_Nullable data, NSURLResponse *_Nullable response, NSError *_Nullable error) {
         EPLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
             NSError *jsonParsingError;
-            NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
+            NSDictionary *responseDictionary = (NSDictionary *) [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
             if (jsonParsingError) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     failure(@[error]);
@@ -133,15 +134,20 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                         failure(errors);
                     } else {
                         EPLog(@"Encrypted payment instruments  confirmed response %@", responseDictionary);
-                        NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
+                        NSDictionary *instruments = responseDictionary[kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }
                 });
             }
         }
     }];
-    
+
     [dataTask resume];
 }
+
+- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference hmac:(NSString *)hmac withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure {
+    [self encryptedPaymentInstrumentsConfirmedWithPaymentReference:paymentReference hmac:hmac apiVersion:self.apiVersion withSuccess:success andError:failure];
+}
+
 
 @end

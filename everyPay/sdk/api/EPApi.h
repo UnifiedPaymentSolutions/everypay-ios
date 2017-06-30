@@ -6,11 +6,12 @@
 //  Copyright (c) 2015 MobiLab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "Constants.h"
+#import "BasedApi.h"
 
 @class EPCard;
-/** 
+@class EPMerchantInfo;
+
+/**
  EPApi contains methods needed for sending credit card data and merchant information to EveryPay server. Server will send back an encrypted token that can be used later for payment request to merchant server.
  
  Example usage:
@@ -26,7 +27,7 @@
  Success block will be called with token string, error block will contain array of errors. Array is needed, because there can be multiple errors related to card. For concistency HTTP errors will be wrapped to array as well.
  */
 
-@interface EPApi : NSObject<NSURLSessionDelegate>
+@interface EPApi : BasedApi
 /** 
  Send card and merchant data to EveryPay server. 
  Merchant info is a dictionary composed of keys defined as string constants:
@@ -53,6 +54,11 @@
 - (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
                                                             hmac:(NSString *)hmac
                                                       apiVersion:(NSString *)apiVersion
+                                                     withSuccess:(DictionarySuccessBlock)success
+                                                        andError:(ArrayBlock)failure __deprecated_msg("This method soon will be removed");
+
+- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
+                                                            hmac:(NSString *)hmac
                                                      withSuccess:(DictionarySuccessBlock)success
                                                         andError:(ArrayBlock)failure;
 

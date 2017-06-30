@@ -64,7 +64,7 @@ NSString *const kAccountId = @"account_id";
 
     EPLog(@"Start request %@\n", request);
     
-    NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
+    NSString *hmac = merchantInfo[kKeyHmac];
     NSDictionary *requestDictionary = @{kKeyHmac: hmac, kKeyEncryptedToken: token};
     NSError *jsonConversionError = nil;
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];

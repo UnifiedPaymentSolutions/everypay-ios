@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setApiVersion:@"2"];
-    [self setAccountIdChoices:[NSArray arrayWithObjects:@"EUR3D1", @"EUR1", nil]];
+    [self setAccountIdChoices:@[@"EUR3D1", @"EUR1"]];
     [self setEpApi:[[EPApi alloc] init]];
     /*
      Dictionary structure:
@@ -40,8 +40,8 @@
     NSArray *demoArray = @[kMerchantApiDemo, kEveryPayApiDemo, kEveryPayApiDemoHost];
     NSMutableDictionary *baseUrlsDictionary = [NSMutableDictionary new];
 
-    [baseUrlsDictionary setObject:stagingArray forKey:@"Staging environment"];
-    [baseUrlsDictionary setObject:demoArray forKey:@"Demo environment"];
+    baseUrlsDictionary[@"Staging environment"] = stagingArray;
+    baseUrlsDictionary[@"Demo environment"] = demoArray;
     [self setBaseUrlsChoices:[baseUrlsDictionary copy]];
 }
 
@@ -60,12 +60,12 @@
 - (void)sendCardCredentialsToEPWithMerchantInfo:(NSDictionary *)merchantInfo andCard:(EPCard *)card accountId:(NSString *)accountId {
     [self appendProgressLog:@"Save card details with EvertPay API..."];
     [self.epApi sendCard:card withMerchantInfo:merchantInfo withSuccess:^(NSDictionary *responseDictionary) {
-        NSString *paymentState = [responseDictionary objectForKey:kPaymentState];
+        NSString *paymentState = responseDictionary[kPaymentState];
         if([paymentState isEqualToString:kPaymentStateWaiting3DsResponse] && [accountId containsString:@"3D"]){
             [self appendProgressLog:@"Done"];
-            NSString *paymentReference = [responseDictionary objectForKey:kKeyPaymentReference];
-            NSString *secureCodeOne = [responseDictionary objectForKey:kKeySecureCodeOne];
-            NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
+            NSString *paymentReference = responseDictionary[kKeyPaymentReference];
+            NSString *secureCodeOne = responseDictionary[kKeySecureCodeOne];
+            NSString *hmac = merchantInfo[kKeyHmac];
             [self appendProgressLog:@"Starting 3DS authentication..."];
             [self startWebViewWithPaymentReference:paymentReference secureCodeOne:secureCodeOne hmac:hmac];
         } else if (![paymentState isEqualToString:kFailed]) {
@@ -104,6 +104,7 @@
 }
 
 - (void)appendProgressLog:(NSString *)log {
+    EPLog(@"> %@", log);
     NSString *stringToAppend = [NSString stringWithFormat:@"\n%@", log];
     [self.textView setText:[self.textView.text stringByAppendingString:stringToAppend]];
 }
@@ -139,7 +140,7 @@
     [self appendProgressLog:@"Done"];
     [self appendProgressLog:@"Confirming 3DS with Everypay server ...."];
     [self.epApi encryptedPaymentInstrumentsConfirmedWithPaymentReference:paymentReference hmac:hmac apiVersion:_apiVersion withSuccess:^(NSDictionary *dictionary) {
-        NSString *token = [dictionary objectForKey:kKeyEncryptedToken];
+        NSString *token = dictionary[kKeyEncryptedToken];
         [self appendProgressLog:@"Done"];
         [self payWithToken:token andMerchantInfo:_merchantInfo];
     } andError:^(NSArray *array) {
@@ -172,10 +173,10 @@
         }
         for (NSString *environment in [self.baseUrlsChoices allKeys]) {
             [actionSheet addAction:[UIAlertAction actionWithTitle:environment style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
-                NSArray *values = [self.baseUrlsChoices objectForKey:environment];
-                [[EPSession sharedInstance] setEverypayApiHost:[values objectAtIndex:2]];
-                [[EPSession sharedInstance] setEveryPayApiBaseUrl:[values objectAtIndex:1]];
-                [[EPSession sharedInstance] setMerchantApiBaseUrl:[values objectAtIndex:0]];
+                NSArray *values = self.baseUrlsChoices[environment];
+                [[EPSession sharedInstance] setEverypayApiHost:values[2]];
+                [[EPSession sharedInstance] setEveryPayApiBaseUrl:values[1]];
+                [[EPSession sharedInstance] setMerchantApiBaseUrl:values[0]];
                 [self showChooseAccountActionSheetWithCard:card];
             }]];
         }

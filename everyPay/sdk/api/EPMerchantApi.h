@@ -6,14 +6,13 @@
 //  Copyright (c) 2015 MobiLab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "Constants.h"
+#import "BasedApi.h"
 
 /** 
  Sample implementations of client <-> merchant server communication.
  */
 
-@interface EPMerchantApi : NSObject
+@interface EPMerchantApi : BasedApi
 
 /** 
  Get merchant EveryPay user and communication security data.

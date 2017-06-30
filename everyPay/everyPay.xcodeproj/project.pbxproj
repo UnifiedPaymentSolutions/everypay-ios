@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821485843FB1723D033064 /* EPMerchantInfo.m */; };
+		318217131125E79EBD845E3A /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821E3B9E6915549577A09C /* BasedApi.m */; };
 		535F0B661B8AFA2100DA196C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B651B8AFA2100DA196C /* main.m */; };
 		535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B681B8AFA2100DA196C /* AppDelegate.m */; };
 		535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B701B8AFA2100DA196C /* Images.xcassets */; };
@@ -46,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		31821485843FB1723D033064 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMerchantInfo.m; sourceTree = "<group>"; };
+		31821754BDB075A2B395FA08 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasedApi.h; sourceTree = "<group>"; };
+		318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMerchantInfo.h; sourceTree = "<group>"; };
+		31821E3B9E6915549577A09C /* BasedApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasedApi.m; sourceTree = "<group>"; };
 		535F0B601B8AFA2100DA196C /* everyPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = everyPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		535F0B641B8AFA2100DA196C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		535F0B651B8AFA2100DA196C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -198,6 +204,8 @@
 			children = (
 				535F0B901B8AFCB600DA196C /* EPCard.h */,
 				535F0B911B8AFCB600DA196C /* EPCard.m */,
+				31821485843FB1723D033064 /* EPMerchantInfo.m */,
+				318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -237,6 +245,8 @@
 				535F0BB11B8B3CFD00DA196C /* EPApi.m */,
 				535F0BB31B8B424400DA196C /* EPMerchantApi.h */,
 				535F0BB41B8B424400DA196C /* EPMerchantApi.m */,
+				31821E3B9E6915549577A09C /* BasedApi.m */,
+				31821754BDB075A2B395FA08 /* BasedApi.h */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -303,10 +313,11 @@
 				TargetAttributes = {
 					535F0B5F1B8AFA2100DA196C = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 4YJSF2LF24;
+						DevelopmentTeam = A6275XZ9FH;
 					};
 					535F0B781B8AFA2200DA196C = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = A6275XZ9FH;
 						TestTargetID = 535F0B5F1B8AFA2100DA196C;
 					};
 				};
@@ -373,6 +384,8 @@
 				535F0B9D1B8B166C00DA196C /* NSError+Additions.m in Sources */,
 				535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */,
 				AEA78A6F1D6D97B400FB923E /* EPSession.m in Sources */,
+				31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */,
+				318217131125E79EBD845E3A /* BasedApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				INFOPLIST_FILE = everyPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -513,6 +527,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				INFOPLIST_FILE = everyPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -525,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -544,6 +560,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

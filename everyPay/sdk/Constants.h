@@ -20,11 +20,6 @@
 #       endif
 #   endif
 #endif
-// Network return blocks
-typedef void (^DictionarySuccessBlock)(NSDictionary *dictionary);
-typedef void (^StringSuccessBlock)(NSString *string);
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^ArrayBlock)(NSArray *array);
 
 // base urls
 extern NSString *const kEveryPayApiStaging;
