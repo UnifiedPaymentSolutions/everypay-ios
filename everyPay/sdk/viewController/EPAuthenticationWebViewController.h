@@ -17,5 +17,5 @@
 
 @property (nonatomic, assign) id <EPAuthenticationWebViewControllerDelegate> delegate;
 
-- (void)addURLParametersWithPaymentReference:(NSString *)paymentReference secureCodeOne:(NSString *)secureCodeOne hmac:(NSString *)hmac;
+@property(nonatomic, strong) NSURL *url;
 @end

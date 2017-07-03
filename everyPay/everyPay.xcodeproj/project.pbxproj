@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821485843FB1723D033064 /* EPMerchantInfo.m */; };
 		318217131125E79EBD845E3A /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821E3B9E6915549577A09C /* BasedApi.m */; };
+		31821ABD8593F993069460D0 /* EPEncryptedPaymentInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */; };
 		535F0B661B8AFA2100DA196C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B651B8AFA2100DA196C /* main.m */; };
 		535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B681B8AFA2100DA196C /* AppDelegate.m */; };
 		535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B701B8AFA2100DA196C /* Images.xcassets */; };
@@ -27,7 +28,6 @@
 		535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB41B8B424400DA196C /* EPMerchantApi.m */; };
 		535F0BB81B8B591500DA196C /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB71B8B591500DA196C /* NSDate+Additions.m */; };
 		535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BBA1B8C43A100DA196C /* DeviceInfo.m */; };
-		535F0BBE1B8C5D1900DA196C /* ErrorExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */; };
 		535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC11B8C692100DA196C /* EPCardInfoViewController.m */; };
 		535F0BC41B8C692100DA196C /* EPCardInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 535F0BC21B8C692100DA196C /* EPCardInfoViewController.xib */; };
 		535F0BC61B8C951900DA196C /* stringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC51B8C951900DA196C /* stringTests.m */; };
@@ -48,8 +48,10 @@
 
 /* Begin PBXFileReference section */
 		31821485843FB1723D033064 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMerchantInfo.m; sourceTree = "<group>"; };
+		31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPEncryptedPaymentInstrument.m; sourceTree = "<group>"; };
 		31821754BDB075A2B395FA08 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasedApi.h; sourceTree = "<group>"; };
 		318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMerchantInfo.h; sourceTree = "<group>"; };
+		31821BA02C198030903145E9 /* EPEncryptedPaymentInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPEncryptedPaymentInstrument.h; sourceTree = "<group>"; };
 		31821E3B9E6915549577A09C /* BasedApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasedApi.m; sourceTree = "<group>"; };
 		535F0B601B8AFA2100DA196C /* everyPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = everyPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		535F0B641B8AFA2100DA196C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,8 +85,6 @@
 		535F0BB71B8B591500DA196C /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "../sdk/category/NSDate+Additions.m"; sourceTree = "<group>"; };
 		535F0BB91B8C43A100DA196C /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInfo.h; path = ../sdk/utility/DeviceInfo.h; sourceTree = "<group>"; };
 		535F0BBA1B8C43A100DA196C /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceInfo.m; path = ../sdk/utility/DeviceInfo.m; sourceTree = "<group>"; };
-		535F0BBC1B8C5D1900DA196C /* ErrorExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ErrorExtractor.h; path = ../sdk/utility/ErrorExtractor.h; sourceTree = "<group>"; };
-		535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorExtractor.m; path = ../sdk/utility/ErrorExtractor.m; sourceTree = "<group>"; };
 		535F0BC01B8C692100DA196C /* EPCardInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPCardInfoViewController.h; path = ../sdk/viewController/EPCardInfoViewController.h; sourceTree = "<group>"; };
 		535F0BC11B8C692100DA196C /* EPCardInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPCardInfoViewController.m; path = ../sdk/viewController/EPCardInfoViewController.m; sourceTree = "<group>"; };
 		535F0BC21B8C692100DA196C /* EPCardInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EPCardInfoViewController.xib; path = ../sdk/viewController/EPCardInfoViewController.xib; sourceTree = "<group>"; };
@@ -203,6 +203,8 @@
 				535F0B911B8AFCB600DA196C /* EPCard.m */,
 				31821485843FB1723D033064 /* EPMerchantInfo.m */,
 				318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */,
+				31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */,
+				31821BA02C198030903145E9 /* EPEncryptedPaymentInstrument.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -227,8 +229,6 @@
 				535F0B991B8B0C4900DA196C /* Luhn.m */,
 				535F0BB91B8C43A100DA196C /* DeviceInfo.h */,
 				535F0BBA1B8C43A100DA196C /* DeviceInfo.m */,
-				535F0BBC1B8C5D1900DA196C /* ErrorExtractor.h */,
-				535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -366,7 +366,6 @@
 				535F0B8D1B8AFADF00DA196C /* ViewController.m in Sources */,
 				535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */,
 				535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */,
-				535F0BBE1B8C5D1900DA196C /* ErrorExtractor.m in Sources */,
 				535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */,
 				535F0B661B8AFA2100DA196C /* main.m in Sources */,
 				535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */,
@@ -380,6 +379,7 @@
 				535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */,
 				31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */,
 				318217131125E79EBD845E3A /* BasedApi.m in Sources */,
+				31821ABD8593F993069460D0 /* EPEncryptedPaymentInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

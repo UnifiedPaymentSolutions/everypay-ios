@@ -14,21 +14,24 @@
  Sample implementations of client <-> merchant server communication.
  */
 
+
 @interface EPMerchantApi : BasedApi
 - (id)initWithURL:(NSURL *)url;
 
 /**
  Get merchant EveryPay user and communication security data.
  */
-- (void)getMerchantDataWithSuccess:(void (^)(EPMerchantInfo *))successCallback failure:(void (^)(NSError *))failureCallback;
+- (void)getMerchantDataWithSuccess:(void (^)(EPMerchantInfo *))successCallback failure:(failureHandler)failureCallback;
 
-/** 
+- (void)getMerchantDataByAccountId:(NSString *)accountId success:(void (^)(EPMerchantInfo *))successCallback failure:(failureHandler)failureCallback;
+
+/**
  Send payment to merchant server
- 
+
  @param token token received from EveryPay server
  @param merchantInfo dictionary containing merchant info data. See EPApi documentation for exact elements that must be there.
  */
 
-- (void)sendPaymentWithToken:(NSString *)token andMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure;
+- (void)sendCardToken:(NSString *)tokenEncrypted hmac:(NSString *)hmac success:(void (^)(void))successCallback failure:(failureHandler)failureCallback;
 
 @end

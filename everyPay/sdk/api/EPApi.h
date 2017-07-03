@@ -8,8 +8,16 @@
 
 #import "BasedApi.h"
 
+typedef enum : NSUInteger {
+    EPAPIEnvTypeDemo = 0,
+    EPAPIEnvTypeStanding,
+    EPAPIEnvTypeLive
+} EPAPIEnvTypes;
+
+
 @class EPCard;
 @class EPMerchantInfo;
+@class EPEncryptedPaymentInstrument;
 
 /**
  EPApi contains methods needed for sending credit card data and merchant information to EveryPay server. Server will send back an encrypted token that can be used later for payment request to merchant server.
@@ -28,6 +36,13 @@
  */
 
 @interface EPApi : BasedApi
+
+- (instancetype)initWithEnv:(EPAPIEnvTypes)envType;
+
+- (void)sendCard:(EPCard *)card merchantInfo:(EPMerchantInfo *)merchantInfo success:(void (^)(EPEncryptedPaymentInstrument *response))successCallback failure:(failureHandler)failureCallback;
+
+- (void)encryptedPaymentInstrumentsConfirmedWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo success:(void (^)(EPEncryptedPaymentInstrument *response))successCallback failure:(failureHandler)failureCallback;
+
 /** 
  Send card and merchant data to EveryPay server. 
  Merchant info is a dictionary composed of keys defined as string constants:
@@ -49,17 +64,8 @@
  
  */
 
-- (void)sendCard:(EPCard *)card withMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure;
+- (NSURL *)getURLFor3dsResponseWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo;
 
-- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
-                                                            hmac:(NSString *)hmac
-                                                      apiVersion:(NSString *)apiVersion
-                                                     withSuccess:(DictionarySuccessBlock)success
-                                                        andError:(ArrayBlock)failure __deprecated_msg("This method soon will be removed");
-
-- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference
-                                                            hmac:(NSString *)hmac
-                                                     withSuccess:(DictionarySuccessBlock)success
-                                                        andError:(ArrayBlock)failure;
+- (NSURL *)getURLEncryptedPaymentInstrumentsConfirmedWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo;
 
 @end

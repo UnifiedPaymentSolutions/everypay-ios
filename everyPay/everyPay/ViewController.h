@@ -10,6 +10,9 @@
 #import "EPCardInfoViewController.h"
 #import "EPAuthenticationWebViewController.h"
 
+@class EPMerchantApi;
+@class EPEncryptedPaymentInstrument;
+
 @interface ViewController : UIViewController <EPCardInfoViewControllerDelegate, EPAuthenticationWebViewControllerDelegate>
 @property (nonatomic, copy) NSString *merchantApiBaseUrl;
 @property (nonatomic, copy) NSString *everypayApiBaseUrl;

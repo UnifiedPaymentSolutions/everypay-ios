@@ -6,20 +6,21 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-typedef void (^DictionarySuccessBlock)(NSDictionary *dictionary);
 
-typedef void (^StringSuccessBlock)(NSString *string);
+typedef void (^completionHandler)(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray <NSError *> *errors);
 
-typedef void (^FailureBlock)(NSError *error);
-
-typedef void (^ArrayBlock)(NSArray *array);
-
-
-typedef void (^completionHandler)(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSError *error);
+typedef void (^failureHandler)(NSArray<NSError *> *errors);
+extern NSString *const kApiVersion;
 
 @interface BasedApi : NSObject
+@property(nonatomic, readonly) NSString *apiVersion;
+@property(nonatomic, strong) NSURL *url;
+
+- (NSMutableURLRequest *)getPostRequestWithURL:(NSURL *)url;
+
 - (void)execute:(NSMutableURLRequest *)request parameters:(NSDictionary *)parameters completionHandler:(completionHandler)handler;
 
-@property(nonatomic, readonly) NSString *apiVersion;
++ (NSArray *)errorsFromDictionary:(NSDictionary *)dictionary;
+
 
 @end
