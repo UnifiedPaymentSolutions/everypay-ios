@@ -7,140 +7,131 @@
 //
 
 #import "EPApi.h"
-#import "Constants.h"
-#import "DeviceInfo.h"
-#import "ErrorExtractor.h"
-#import "EPSession.h"
+#import "EPCard.h"
+#import "EPMerchantInfo.h"
+#import "EPEncryptedPaymentInstrument.h"
+#import "NSError+Additions.h"
+
+NSString *const kEveryPayApiDemo = @"https://gw-demo.every-pay.com";
+NSString *const kEveryPayApiStaging = @"https://gw-staging.every-pay.com";
+NSString *const kEveryPayApiLive = @"https://gw.every-pay.eu";
 
 NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
+NSString *const kKeyEncryptedPaymentInstrument = @"encrypted_payment_instrument";
+
+NSString *const kParamHmac = @"mobile_3ds_hmac";
+NSString *const kKeyApiVersion = @"api_version";
+
+
 @interface EPApi ()
-
-@property (nonatomic) NSURLSession *urlSession;
-
 @end
 
 
 @implementation EPApi
-
-- (instancetype)init {
+- (instancetype)initWithEnv:(EPAPIEnvTypes)envType {
+    NSString *string;
     self = [super init];
     if (self) {
-        NSURLSessionConfiguration *conf = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        conf.TLSMinimumSupportedProtocol = kTLSProtocol11;
-        [self setUrlSession:[NSURLSession sessionWithConfiguration:conf delegate:self delegateQueue:nil]];
+        switch (envType) {
+            case EPAPIEnvTypeDemo:
+                string = kEveryPayApiDemo;
+                break;
+            case EPAPIEnvTypeStanding:
+                string = kEveryPayApiStaging;
+                break;
+            case EPAPIEnvTypeLive:
+                string = kEveryPayApiLive;
+                break;
+        }
+        self.url = [[NSURL alloc] initWithString:string];
     }
     return self;
 }
 
+/**
+       Response dictionary for non 3Ds response:
+       {
+          "encrypted_payment_instrument" = {
+              "cc_token_encrypted" = "QEVuQwBAEAAcXJQdBNP2fcVbANPoc+KdE9flBsC4O8hZQPut4MLjMKAVjTt9JDI8eqTpYiDH9dE=-1440501330";
+              "payment_state" = "authorised"
+          };
+       }
 
-- (void)sendCard:(EPCard *)card withMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure {
-    NSURL *baseApiUrl = [NSURL URLWithString:[EPSession sharedInstance].everyPayApiBaseUrl];
-    NSURL *url = [NSURL URLWithString:kSendCardDetailsPath relativeToURL:baseApiUrl];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+       Response dictionary for 3Ds response:
+          "encrypted_payment_instrument": {
+              "payment_reference":"0aa6409492f358da0fb6d9b821ce6ca4a5609073489dcaf3456023cafca96efa",
+              "payment_state":"waiting_for_3ds_response",
+              "secure_code_one":"XyIfP0b7giwcJma24axOaQt2m96F/ThG62Ptd5rsX4Bj7tSAM/pfgD"
+          }
 
-    NSMutableDictionary *merchantDictionary = [NSMutableDictionary dictionaryWithDictionary:merchantInfo];
-    [merchantDictionary removeObjectForKey:@"http_path"];
-    [merchantDictionary removeObjectForKey:@"http_method"];
-    [merchantDictionary addEntriesFromDictionary:[card cardInfoDictionary]];
-    
-    
-    NSDictionary *requestDictionary = @{kKeyEncryptedPaymentInstrument: merchantDictionary};
-    NSError *jsonConversionError;
+**/
 
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
-    
-    NSLog(@"Start request %@\n", request);
-    NSLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
-    
-    NSURLSessionUploadTask *uploadTask = [self.urlSession uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSLog(@"Request completed with response\n %@", response);
-        if (error) {
-            failure(@[error]);
-        } else {
-            NSError *jsonParsingError;
-            NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-            if (error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    failure(@[error]);
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *errors = [ErrorExtractor errorsFromDictionary:responseDictionary];
-                    if ([errors count] > 0) {
-                        NSLog(@"Error processing payment: %@", errors);
-                        failure(errors);
-                    } else {
-                        /** 
-                         Response dictionary for non 3Ds response:
-                         {
-                            "encrypted_payment_instrument" = {
-                                "cc_token_encrypted" = "QEVuQwBAEAAcXJQdBNP2fcVbANPoc+KdE9flBsC4O8hZQPut4MLjMKAVjTt9JDI8eqTpYiDH9dE=-1440501330";
-                                "payment_state" = "authorised"
-                            };
-                         }
-                         
-                         Response dictionary for 3Ds response:
-                            "encrypted_payment_instrument": {
-                                "payment_reference":"0aa6409492f358da0fb6d9b821ce6ca4a5609073489dcaf3456023cafca96efa",
-                                "payment_state":"waiting_for_3ds_response",
-                                "secure_code_one":"XyIfP0b7giwcJma24axOaQt2m96F/ThG62Ptd5rsX4Bj7tSAM/pfgD"
-                            }
+- (void)sendCard:(EPCard *)card merchantInfo:(EPMerchantInfo *)merchantInfo success:(void (^)(EPEncryptedPaymentInstrument *response))successCallback failure:(failureHandler)failureCallback {
+    void (^successCallbackCopy)(EPEncryptedPaymentInstrument *)=[successCallback copy];
+    failureHandler failureCallbackCopy = [failureCallback copy];
 
-                         */
-                        NSLog(@"Encrypted payment instruments response %@", responseDictionary);
-                        NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
-                        success(instruments);
-                    }
-                });
-            }
-        }
-    }];
-    
-    [uploadTask resume];
+    NSURL *url = [NSURL URLWithString:kSendCardDetailsPath relativeToURL:self.url];
+    NSMutableURLRequest *request = [self getPostRequestWithURL:url];
+
+    NSMutableDictionary *merchantDictionary = [[merchantInfo toDictionary] mutableCopy];
+    [merchantDictionary addEntriesFromDictionary:[card toDictionary]];
+    merchantDictionary[kApiVersion] = self.apiVersion;
+
+    NSDictionary *requestDictionary = @{kKeyEncryptedPaymentInstrument: [merchantDictionary copy]};
+    [self executeApiRequest:request parameters:requestDictionary success:successCallbackCopy failure:failureCallbackCopy];
 }
 
-- (void)encryptedPaymentInstrumentsConfirmedWithPaymentReference:(NSString *)paymentReference hmac:(NSString *)hmac apiVersion:(NSString *)apiVersion withSuccess:(DictionarySuccessBlock)success andError:(ArrayBlock)failure {
+- (void)encryptedPaymentInstrumentsConfirmedWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo success:(void (^)(EPEncryptedPaymentInstrument *response))successCallback failure:(failureHandler)failureCallback {
+    void (^successCallbackCopy)(EPEncryptedPaymentInstrument *)=[successCallback copy];
+    failureHandler failureCallbackCopy = [failureCallback copy];
+
+    NSURL *url = [self getURLEncryptedPaymentInstrumentsConfirmedWith:encryptedPaymentInstrument merchantInfo:merchantInfo];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod = @"GET";
+    [self executeApiRequest:request parameters:nil success:successCallbackCopy failure:failureCallbackCopy];
+}
+
+- (void)executeApiRequest:(NSMutableURLRequest *)request parameters:(NSDictionary *)parameters success:(void (^)(EPEncryptedPaymentInstrument *))successCallback failure:(failureHandler)failureCallback {
+    [self execute:request parameters:parameters completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *errors) {
+        if (errors) {
+            failureCallback(errors);
+            return;
+        }
+        NSDictionary *encryptedPaymentInstrumentResponse = jsonResponse[kKeyEncryptedPaymentInstrument];
+        if (![encryptedPaymentInstrumentResponse isKindOfClass:[NSDictionary class]]) {
+            NSError *error = [NSError errorWithDescription:@"Not found key kKeyEncryptedPaymentInstrument in dictionary" andCode:1001];
+            failureCallback(@[error]);
+            return;
+        }
+        successCallback([[EPEncryptedPaymentInstrument alloc] initWithDictionary:encryptedPaymentInstrumentResponse]);
+    }];
+}
+
+- (NSURL *)getURLFor3dsResponseWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo {
+    NSURLQueryItem *paymentRef = [NSURLQueryItem queryItemWithName:kKeyPaymentReference value:encryptedPaymentInstrument.paymentReference];
+    NSURLQueryItem *secureCode = [NSURLQueryItem queryItemWithName:kKeySecureCodeOne value:encryptedPaymentInstrument.secureCodeOne];
+    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:merchantInfo.hmac];
+    NSURLQueryItem *apiVer = [NSURLQueryItem queryItemWithName:kKeyApiVersion value:self.apiVersion]; // todo: need to test
+
     NSURLComponents *components = [NSURLComponents new];
     [components setScheme:@"https"];
-    [components setHost:[EPSession sharedInstance].everypayApiHost];
-    [components setPath:[NSString stringWithFormat:@"/encrypted_payment_instruments/%@", paymentReference]];
-    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:hmac];
-    NSURLQueryItem *apiVer = [NSURLQueryItem queryItemWithName:kKeyApiVersion value:apiVersion];
+    [components setHost:self.url.host];
+    [components setPath:@"/authentication3ds/new"];
+    [components setQueryItems:@[paymentRef, secureCode, mobile3DsHmac, apiVer]];
+    return [components URL];
+}
+
+- (NSURL *)getURLEncryptedPaymentInstrumentsConfirmedWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo {
+    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:merchantInfo.hmac];
+    NSURLQueryItem *apiVer = [NSURLQueryItem queryItemWithName:kKeyApiVersion value:self.apiVersion];
+
+    NSURLComponents *components = [NSURLComponents new];
+    [components setScheme:@"https"];
+    [components setHost:self.url.host];
+    [components setPath:[NSString stringWithFormat:@"%@/%@", merchantInfo.path, encryptedPaymentInstrument.paymentReference]];
     [components setQueryItems:@[mobile3DsHmac, apiVer]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[components URL]];
-    request.HTTPMethod = @"GET";
-    NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
-        NSLog(@"Request completed with response\n %@", response);
-        if (error) {
-            failure(@[error]);
-        } else {
-            NSError *jsonParsingError;
-            NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-            if (error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    failure(@[error]);
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSArray *errors = [ErrorExtractor errorsFromDictionary:responseDictionary];
-                    if ([errors count] > 0) {
-                        NSLog(@"Error processing payment: %@", errors);
-                        failure(errors);
-                    } else {
-                        NSLog(@"Encrypted payment instruments  confirmed response %@", responseDictionary);
-                        NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
-                        success(instruments);
-                    }
-                });
-            }
-        }
-    }];
-    
-    [dataTask resume];
+    return [components URL];
 }
 
 @end

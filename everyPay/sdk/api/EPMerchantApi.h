@@ -6,27 +6,32 @@
 //  Copyright (c) 2015 MobiLab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "Constants.h"
+#import "BasedApi.h"
+
+@class EPMerchantInfo;
 
 /** 
  Sample implementations of client <-> merchant server communication.
  */
 
-@interface EPMerchantApi : NSObject
 
-/** 
+@interface EPMerchantApi : BasedApi
+- (id)initWithURL:(NSURL *)url;
+
+/**
  Get merchant EveryPay user and communication security data.
  */
-+ (void)getMerchantDataWithSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure apiVersion:(NSString *)apiVersion accountId:(NSString *)accountId;
+- (void)getMerchantDataWithSuccess:(void (^)(EPMerchantInfo *))successCallback failure:(failureHandler)failureCallback;
 
-/** 
+- (void)getMerchantDataByAccountId:(NSString *)accountId success:(void (^)(EPMerchantInfo *))successCallback failure:(failureHandler)failureCallback;
+
+/**
  Send payment to merchant server
- 
+
  @param token token received from EveryPay server
  @param merchantInfo dictionary containing merchant info data. See EPApi documentation for exact elements that must be there.
  */
 
-+ (void)sendPaymentWithToken:(NSString *)token andMerchantInfo:(NSDictionary *)merchantInfo withSuccess:(DictionarySuccessBlock)success andError:(FailureBlock)failure;
+- (void)sendCardToken:(NSString *)tokenEncrypted hmac:(NSString *)hmac success:(void (^)(void))successCallback failure:(failureHandler)failureCallback;
 
 @end

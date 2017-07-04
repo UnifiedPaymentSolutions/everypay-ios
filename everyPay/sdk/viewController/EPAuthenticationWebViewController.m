@@ -6,16 +6,15 @@
 //  Copyright © 2016 MobiLab. All rights reserved.
 //
 
-#import "EpAuthenticationWebViewController.h"
+#import "EPAuthenticationWebViewController.h"
 #import "Constants.h"
-#import "EPSession.h"
+
+NSString *const kPaymentStateWeb = @"payment_state";
+NSString *const kPaymentStateWebAuthorised = @"payment_state=authorised";
 
 @interface EPAuthenticationWebViewController ()
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (nonatomic, copy) NSString *paymentReference;
-@property (nonatomic) BOOL isBrowserFlowEndUrlReached;
-@property (nonatomic, copy) NSString *secureCodeOne;
-@property (nonatomic, copy) NSString *hmac;
+@property(weak, nonatomic) IBOutlet UIWebView *webView;
+@property(nonatomic) BOOL isBrowserFlowEndUrlReached;
 
 @end
 
@@ -24,11 +23,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle:@"3Ds authentication"];
-    NSURL *url = [self buildInitURLForWebViewWithPaymentReference:_paymentReference secureCodeOne:_secureCodeOne hmac:_hmac];
-    NSLog(@"webView URL %@",url);
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self loadRequestBy3dsUrl];
     [self.webView setDelegate:self];
+}
+
+- (void)loadRequestBy3dsUrl {
+    NSURLRequest *request = [NSURLRequest requestWithURL:self.url3ds];
     [self.webView loadRequest:request];
+}
+
++ (EPAuthenticationWebViewController *)allocWithDelegate:(id)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac {
+    Class selfClass = [self class];
+    NSBundle *bundle = [NSBundle bundleForClass:selfClass];
+    EPAuthenticationWebViewController *authenticationWebView = [[EPAuthenticationWebViewController alloc] initWithNibName:NSStringFromClass(selfClass) bundle:bundle];
+    authenticationWebView.delegate = delegate;
+    authenticationWebView.url3ds = url;
+    authenticationWebView.hmac = hmac;
+    return authenticationWebView;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,42 +47,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSURL *)buildInitURLForWebViewWithPaymentReference:(NSString *)paymentReference secureCodeOne:(NSString *)secureCodeOne hmac:(NSString *)hmac {
-    NSURLComponents *components = [NSURLComponents new];
-    [components setScheme:@"https"];
-    [components setHost:[EPSession sharedInstance].everypayApiHost];
-    [components setPath:@"/authentication3ds/new"];
-    NSURLQueryItem *paymentRef = [NSURLQueryItem queryItemWithName:kKeyPaymentReference value:paymentReference];
-    NSURLQueryItem *secureCode = [NSURLQueryItem queryItemWithName:kKeySecureCodeOne value:secureCodeOne];
-    NSURLQueryItem *mobile3DsHmac = [NSURLQueryItem queryItemWithName:kParamHmac value:hmac];
-    [components setQueryItems:@[paymentRef, secureCode, mobile3DsHmac]];
-    return [components URL];
-}
-- (void)addURLParametersWithPaymentReference:(NSString *)paymentReference secureCodeOne:(NSString *)secureCodeOne hmac:(NSString *)hmac {
-    [self setPaymentReference:paymentReference];
-    [self setSecureCodeOne:secureCodeOne];
-    [self setHmac:hmac];
-}
-
 #pragma mark UIWebViewDelegate
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = request.URL.absoluteString;
-    
-    NSLog(@"url: %@, scheme: %@, relativePath: %@, relativeString: %@", request.URL.absoluteString, request.URL.scheme, request.URL.relativePath, request.URL.relativeString);
-    if([self isBrowserFlowEndUrlWithUrlString:urlString]){
+
+    EPLog(@"url3ds: %@, scheme: %@, relativePath: %@, relativeString: %@", request.URL.absoluteString, request.URL.scheme, request.URL.relativePath, request.URL.relativeString);
+    if ([self isBrowserFlowEndUrlWithUrlString:urlString]) {
         [self setIsBrowserFlowEndUrlReached:YES];
-        if ([self isBrowerFlowSuccessfulWithUrlString:urlString]) {
-            NSString *urlWithoutPrefix = [[NSString alloc]init];
-            if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
-                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixStating withString:@""];
-            } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
-                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixDemo withString:@""];
-            }  else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {
-                urlWithoutPrefix = [urlString stringByReplacingOccurrencesOfString:kBrowserFlowEndURLPrefixLive withString:@""];
-            }
-            NSString *paymentReference = [urlWithoutPrefix componentsSeparatedByString:@"?"][0];
+        if ([self isBrowserFlowSuccessfulWithUrlString:urlString]) {
+//https://gw-demo.every-pay.com/authentication3ds/3fc2c36ccd08c440c3ac350818e4503127dad6072a17b2b8710345ba9e57f0e2?payment_state=authorised
+            urlString = [urlString componentsSeparatedByString:@"/"].lastObject;
+            NSString *paymentReference = [urlString componentsSeparatedByString:@"?"].firstObject;
             if (self.delegate) {
-                [self.delegate authenticationSucceededWithPayentReference:paymentReference hmac:_hmac];
+                [self.delegate authenticationSucceededWithPaymentReference:paymentReference hmac:self.hmac];
             }
         } else {
             NSInteger errorCode = 999;
@@ -84,27 +73,20 @@
 }
 
 - (BOOL)isBrowserFlowEndUrlWithUrlString:(NSString *)urlString {
-    return [urlString containsString:kPaymentState];
+    return [urlString containsString:kPaymentStateWeb];
 }
 
-- (BOOL)isBrowerFlowSuccessfulWithUrlString:(NSString *)urlString {
-    if([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiStagingHost]){
-        return [urlString hasPrefix:kBrowserFlowEndURLPrefixStating] && [urlString containsString:kPaymentStateAuthorised];
-    } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiDemoHost]) {
-        return [urlString hasPrefix:kBrowserFlowEndURLPrefixDemo] && [urlString containsString:kPaymentStateAuthorised];
-    } else if ([[EPSession sharedInstance].everypayApiHost isEqualToString:kEveryPayApiLiveHost]) {
-        return [urlString hasPrefix:kBrowserFlowEndURLPrefixLive] && [urlString containsString:kPaymentStateAuthorised];
-    } else {
-        return NO;
-    }
-   }
+- (BOOL)isBrowserFlowSuccessfulWithUrlString:(NSString *)urlString {
+    return [urlString containsString:kPaymentStateWebAuthorised];
+}
 
 - (void)didMoveToParentViewController:(UIViewController *)parent {
-    if(![parent isEqual:self.parentViewController]) {
-        NSLog(@"Back pressed");
-        if(!self.isBrowserFlowEndUrlReached) {
+    if (![parent isEqual:self.parentViewController]) {
+        EPLog(@"Back pressed");
+        if (!self.isBrowserFlowEndUrlReached) {
             [self.delegate authenticationCanceled];
         }
     }
 }
+
 @end
