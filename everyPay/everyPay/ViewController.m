@@ -13,11 +13,14 @@
 #import "EPEncryptedPaymentInstrument.h"
 #import "EPMerchantInfo.h"
 
+#import "EPCardInfoViewController.h"
+#import "EPAuthenticationWebViewController.h"
+
 NSString *const kMerchantApiDemo = @"https://igwshop-demo.every-pay.com";
 NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
 
 
-@interface ViewController ()
+@interface ViewController () <EPCardInfoViewControllerDelegate, EPAuthenticationWebViewControllerDelegate>
 @property(weak, nonatomic) IBOutlet UITextView *textView;
 
 @property(nonatomic, strong) EPApi *epApi;
@@ -26,12 +29,21 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
 @property(nonatomic, strong) EPMerchantInfo *merchantInfo;
 @property(nonatomic, strong) EPEncryptedPaymentInstrument *encryptedPaymentInstrument;
 
+@property(nonatomic, copy) void (^failureCallback)(NSArray<NSError *> *);
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    __weak typeof(self) weakSelf = self;
+    self.failureCallback = ^(NSArray<NSError *> *errors) {
+        [weakSelf showAlertWithError:errors.firstObject];
+    };
+    [self.textView setText:@""];
+    [self appendProgressLog:@"1"];
+    [self appendProgressLog:@"2"];
+    [self appendProgressLog:@"3"];
 }
 
 - (void)showChooseApiBaseUrlActionSheetWithCard:(EPCard *)card {
@@ -79,9 +91,7 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
         [self appendProgressLog:@"Done"];
         self.merchantInfo = merchantInfo;
         [self sendCardCredentialsToEPWithMerchantInfo:merchantInfo card:card];
-    }                                    failure:^(NSArray<NSError *> *errors) {
-        [self showAlertWithError:errors.firstObject];
-    }];
+    }                                    failure:self.failureCallback];
 }
 
 - (void)sendCardCredentialsToEPWithMerchantInfo:(EPMerchantInfo *)merchantInfo card:(EPCard *)card {
@@ -98,25 +108,19 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
         } else {
             [self showAlertWithError:[NSError errorWithDomain:@"Unknown account id or payment state" code:1001 userInfo:nil]];
         }
-    }            failure:^(NSArray<NSError *> *errors) {
-        [self showAlertWithError:[errors firstObject]];
-    }];
+    }            failure:self.failureCallback];
 }
 
 - (void)payWithToken:(NSString *)token andMerchantInfo:(EPMerchantInfo *)merchantInfo {
     [self appendProgressLog:@"Send card token to merchant server..."];
     [self.merchantApi sendCardToken:token hmac:merchantInfo.hmac success:^{
         [self appendProgressLog:@"All done"];
-    }                       failure:^(NSArray<NSError *> *errors) {
-        [self showAlertWithError:errors.firstObject];
-    }];
+    }                       failure:self.failureCallback];
 }
 
 - (void)startWebViewWithEncryptedPaymentInstrument:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo {
     NSURL *url = [self.epApi getURLFor3dsResponseWith:encryptedPaymentInstrument merchantInfo:merchantInfo];
-    EPAuthenticationWebViewController *authenticationWebView = [[EPAuthenticationWebViewController alloc] initWithNibName:NSStringFromClass([EPAuthenticationWebViewController class]) bundle:nil];
-    [authenticationWebView setDelegate:self];
-    [authenticationWebView setUrl:url];
+    EPAuthenticationWebViewController *authenticationWebView = [EPAuthenticationWebViewController allocWithDelegate:self withURL3ds:url withHmac:self.merchantInfo.hmac];
     [self.navigationController pushViewController:authenticationWebView animated:YES];
 }
 
@@ -149,11 +153,6 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
     [cardInfoViewController setDelegate:self];
     [self.navigationController pushViewController:cardInfoViewController animated:YES];
     cardInfoViewController.edgesForExtendedLayout = UIRectEdgeNone;
-    [self appendProgressLog:@"\n"];
-}
-
-- (void)closeWebViewController {
-    [self.navigationController popToViewController:self animated:YES];
 }
 
 #pragma mark - EPAuthenticationWebViewControllerDelegate
@@ -168,7 +167,7 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
     [self showAlertWithError:[NSError errorWithDomain:@"3Ds authentication failed" code:errorCode userInfo:nil]];
 }
 
-- (void)authenticationSucceededWithPayentReference:(NSString *)paymentReference hmac:(NSString *)hmac {
+- (void)authenticationSucceededWithPaymentReference:(NSString *)paymentReference hmac:(NSString *)hmac {
     [self.navigationController popToViewController:self animated:YES];
     EPLog(@"payment succeeded with reference %@", paymentReference);
     [self appendProgressLog:@"Done"];
@@ -177,9 +176,7 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
         self.encryptedPaymentInstrument = response;
         [self appendProgressLog:@"Done"];
         [self payWithToken:response.ccTokenEncrypted andMerchantInfo:self.merchantInfo];
-    }                                            failure:^(NSArray<NSError *> *errors) {
-        [self showAlertWithError:errors.firstObject];
-    }];
+    }                                            failure:self.failureCallback];
 }
 
 #pragma mark - CardInfoViewControllerDelegate
@@ -187,6 +184,5 @@ NSString *const kMerchantApiStaging = @"https://igwshop-staging.every-pay.com";
 - (void)cardInfoViewController:(UIViewController *)controller didEnterInfoForCard:(EPCard *)card {
     [self.navigationController popToViewController:self animated:YES];
     [self showChooseApiBaseUrlActionSheetWithCard:card];
-
 }
 @end

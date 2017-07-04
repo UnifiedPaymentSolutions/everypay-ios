@@ -79,21 +79,7 @@ NSString *const kKeyApiVersion = @"api_version";
     merchantDictionary[kApiVersion] = self.apiVersion;
 
     NSDictionary *requestDictionary = @{kKeyEncryptedPaymentInstrument: [merchantDictionary copy]};
-    [self execute:request parameters:requestDictionary completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *errors) {
-        if (errors) {
-            failureCallbackCopy(errors);
-            return;
-        }
-
-        NSDictionary *encryptedPaymentInstrument = jsonResponse[kKeyEncryptedPaymentInstrument];
-        if (![encryptedPaymentInstrument isKindOfClass:[NSDictionary class]]) {
-            NSError *error = [NSError errorWithDescription:@"Not found key kKeyEncryptedPaymentInstrument in dictionary" andCode:1001];
-            failureCallbackCopy(@[error]);
-            return;
-        }
-        successCallbackCopy([[EPEncryptedPaymentInstrument alloc] initWithDictionary:encryptedPaymentInstrument]);
-    }];
-
+    [self executeApiRequest:request parameters:requestDictionary success:successCallbackCopy failure:failureCallbackCopy];
 }
 
 - (void)encryptedPaymentInstrumentsConfirmedWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo success:(void (^)(EPEncryptedPaymentInstrument *response))successCallback failure:(failureHandler)failureCallback {
@@ -101,15 +87,25 @@ NSString *const kKeyApiVersion = @"api_version";
     failureHandler failureCallbackCopy = [failureCallback copy];
 
     NSURL *url = [self getURLEncryptedPaymentInstrumentsConfirmedWith:encryptedPaymentInstrument merchantInfo:merchantInfo];
-
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"GET";
+    [self executeApiRequest:request parameters:nil success:successCallbackCopy failure:failureCallbackCopy];
+}
 
-    [self execute:request parameters:nil completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *errors) {
-//    EPLog(@"Header request %@\n", request.allHTTPHeaderFields);
-
+- (void)executeApiRequest:(NSMutableURLRequest *)request parameters:(NSDictionary *)parameters success:(void (^)(EPEncryptedPaymentInstrument *))successCallback failure:(failureHandler)failureCallback {
+    [self execute:request parameters:parameters completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *errors) {
+        if (errors) {
+            failureCallback(errors);
+            return;
+        }
+        NSDictionary *encryptedPaymentInstrumentResponse = jsonResponse[kKeyEncryptedPaymentInstrument];
+        if (![encryptedPaymentInstrumentResponse isKindOfClass:[NSDictionary class]]) {
+            NSError *error = [NSError errorWithDescription:@"Not found key kKeyEncryptedPaymentInstrument in dictionary" andCode:1001];
+            failureCallback(@[error]);
+            return;
+        }
+        successCallback([[EPEncryptedPaymentInstrument alloc] initWithDictionary:encryptedPaymentInstrumentResponse]);
     }];
-
 }
 
 - (NSURL *)getURLFor3dsResponseWith:(EPEncryptedPaymentInstrument *)encryptedPaymentInstrument merchantInfo:(EPMerchantInfo *)merchantInfo {

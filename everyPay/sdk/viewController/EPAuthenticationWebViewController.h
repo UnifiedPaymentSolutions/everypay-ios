@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol EPAuthenticationWebViewControllerDelegate
-- (void)authenticationSucceededWithPayentReference:(NSString *)paymentReference hmac:(NSString *)hmac;
+- (void)authenticationSucceededWithPaymentReference:(NSString *)paymentReference hmac:(NSString *)hmac;
+
 - (void)authenticationFailedWithErrorCode:(NSInteger)errorCode;
+
 - (void)authenticationCanceled;
 @end
 
-@interface EPAuthenticationWebViewController : UIViewController<UIWebViewDelegate>
+@interface EPAuthenticationWebViewController : UIViewController <UIWebViewDelegate>
+@property(nonatomic, weak) id <EPAuthenticationWebViewControllerDelegate> delegate;
+@property(nonatomic, copy) NSURL *url3ds;
+@property(nonatomic, copy) NSString *hmac;
 
-@property (nonatomic, assign) id <EPAuthenticationWebViewControllerDelegate> delegate;
++ (EPAuthenticationWebViewController *)allocWithDelegate:(id)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac;
 
-@property(nonatomic, strong) NSURL *url;
+- (void)loadRequestBy3dsUrl;
+
 @end

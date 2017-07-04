@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C547EA81F0BAE3E001207AC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */; };
 		31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821485843FB1723D033064 /* EPMerchantInfo.m */; };
 		318217131125E79EBD845E3A /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821E3B9E6915549577A09C /* BasedApi.m */; };
 		31821ABD8593F993069460D0 /* EPEncryptedPaymentInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */; };
@@ -15,7 +16,6 @@
 		535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B701B8AFA2100DA196C /* Images.xcassets */; };
 		535F0B801B8AFA2200DA196C /* everyPayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B7F1B8AFA2200DA196C /* everyPayTests.m */; };
 		535F0B8D1B8AFADF00DA196C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B8B1B8AFADF00DA196C /* ViewController.m */; };
-		535F0B8E1B8AFADF00DA196C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B8C1B8AFADF00DA196C /* ViewController.xib */; };
 		535F0B921B8AFCB600DA196C /* EPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B911B8AFCB600DA196C /* EPCard.m */; };
 		535F0B961B8B083200DA196C /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B951B8B083200DA196C /* NSString+Additions.m */; };
 		535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B991B8B0C4900DA196C /* Luhn.m */; };
@@ -47,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		31821485843FB1723D033064 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMerchantInfo.m; sourceTree = "<group>"; };
 		31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPEncryptedPaymentInstrument.m; sourceTree = "<group>"; };
 		31821754BDB075A2B395FA08 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasedApi.h; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		535F0B7F1B8AFA2200DA196C /* everyPayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = everyPayTests.m; sourceTree = "<group>"; };
 		535F0B8A1B8AFADF00DA196C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		535F0B8B1B8AFADF00DA196C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		535F0B8C1B8AFADF00DA196C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		535F0B901B8AFCB600DA196C /* EPCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPCard.h; path = ../sdk/model/EPCard.h; sourceTree = "<group>"; };
 		535F0B911B8AFCB600DA196C /* EPCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPCard.m; path = ../sdk/model/EPCard.m; sourceTree = "<group>"; };
 		535F0B951B8B083200DA196C /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "../sdk/category/NSString+Additions.m"; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 				535F0B631B8AFA2100DA196C /* Supporting Files */,
 				535F0B8A1B8AFADF00DA196C /* ViewController.h */,
 				535F0B8B1B8AFADF00DA196C /* ViewController.m */,
-				535F0B8C1B8AFADF00DA196C /* ViewController.xib */,
+				2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */,
 			);
 			name = everyPayDemo;
 			path = everyPay;
@@ -342,10 +342,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				535F0BC41B8C692100DA196C /* EPCardInfoViewController.xib in Resources */,
-				535F0B8E1B8AFADF00DA196C /* ViewController.xib in Resources */,
 				535F0BA01B8B269A00DA196C /* Localizable.strings in Resources */,
 				535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */,
 				AEFE953A1D228CB300A91BF2 /* EPAuthenticationWebViewController.xib in Resources */,
+				2C547EA81F0BAE3E001207AC /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

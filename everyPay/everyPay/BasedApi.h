@@ -15,6 +15,7 @@ extern NSString *const kApiVersion;
 @interface BasedApi : NSObject
 @property(nonatomic, readonly) NSString *apiVersion;
 @property(nonatomic, strong) NSURL *url;
+@property(nonatomic) NSInteger timeout;
 
 - (NSMutableURLRequest *)getPostRequestWithURL:(NSURL *)url;
 

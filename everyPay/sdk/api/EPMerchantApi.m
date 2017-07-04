@@ -9,8 +9,9 @@
 #import "EPMerchantApi.h"
 #import "EPMerchantInfo.h"
 #import "EPEncryptedPaymentInstrument.h"
+#import "NSError+Additions.h"
 
-
+// TODO: maybe need make this paths like parameters?
 NSString *const kGetMerchantInfoPath = @"/merchant_mobile_payments/generate_token_api_parameters";
 NSString *const kSendPaymentPath = @"/merchant_mobile_payments/pay";
 
@@ -61,7 +62,17 @@ NSString *const kSendPaymentPath = @"/merchant_mobile_payments/pay";
             kKeyHmac: hmac,
             kApiVersion: self.apiVersion,
     };
-    [self execute:request parameters:parameters completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *error) {
+    [self execute:request parameters:parameters completionHandler:^(NSURLResponse *rawResponse, NSDictionary *jsonResponse, NSArray<NSError *> *errors) {
+        if (errors) {
+            failureCallbackCopy(errors);
+            return;
+        }
+        NSString *answer = jsonResponse[@"status"];
+        if (![answer isEqual:@"success"]) {
+            failureCallbackCopy(@[[NSError errorWithDescription:answer andCode:1002]]);
+            return;
+        }
+        successCallbackCopy();
     }];
 }
 @end
