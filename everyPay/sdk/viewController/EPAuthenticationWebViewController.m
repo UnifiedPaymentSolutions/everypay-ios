@@ -32,7 +32,7 @@ NSString *const kPaymentStateWebAuthorised = @"payment_state=authorised";
     [self.webView loadRequest:request];
 }
 
-+ (EPAuthenticationWebViewController *)allocWithDelegate:(id)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac {
++ (EPAuthenticationWebViewController *)allocWithDelegate:(id <EPAuthenticationWebViewControllerDelegate>)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac {
     Class selfClass = [self class];
     NSBundle *bundle = [NSBundle bundleForClass:selfClass];
     EPAuthenticationWebViewController *authenticationWebView = [[EPAuthenticationWebViewController alloc] initWithNibName:NSStringFromClass(selfClass) bundle:bundle];

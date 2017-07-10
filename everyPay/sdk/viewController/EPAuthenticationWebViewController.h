@@ -21,7 +21,7 @@
 @property(nonatomic, copy) NSURL *url3ds;
 @property(nonatomic, copy) NSString *hmac;
 
-+ (EPAuthenticationWebViewController *)allocWithDelegate:(id)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac;
++ (EPAuthenticationWebViewController *)allocWithDelegate:(id <EPAuthenticationWebViewControllerDelegate>)delegate withURL3ds:(NSURL *)url withHmac:(NSString *)hmac;
 
 - (void)loadRequestBy3dsUrl;
 
