@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1B97541F136F3E00E26846 /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97531F136F3E00E26846 /* BasedApi.m */; };
+		2C1B97571F136F7E00E26846 /* EPMerchantApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97561F136F7E00E26846 /* EPMerchantApi.m */; };
+		2C1B975C1F136F8C00E26846 /* EPEncryptedPaymentInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */; };
+		2C1B975D1F136F8C00E26846 /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */; };
 		2C547EA81F0BAE3E001207AC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */; };
-		31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821485843FB1723D033064 /* EPMerchantInfo.m */; };
-		318217131125E79EBD845E3A /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821E3B9E6915549577A09C /* BasedApi.m */; };
-		31821ABD8593F993069460D0 /* EPEncryptedPaymentInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */; };
 		535F0B661B8AFA2100DA196C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B651B8AFA2100DA196C /* main.m */; };
 		535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B681B8AFA2100DA196C /* AppDelegate.m */; };
 		535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B701B8AFA2100DA196C /* Images.xcassets */; };
@@ -25,7 +26,6 @@
 		535F0BA81B8B2DBC00DA196C /* cardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BA71B8B2DBC00DA196C /* cardTests.m */; };
 		535F0BAB1B8B36E100DA196C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BAA1B8B36E100DA196C /* Constants.m */; };
 		535F0BB21B8B3CFD00DA196C /* EPApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB11B8B3CFD00DA196C /* EPApi.m */; };
-		535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB41B8B424400DA196C /* EPMerchantApi.m */; };
 		535F0BB81B8B591500DA196C /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB71B8B591500DA196C /* NSDate+Additions.m */; };
 		535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BBA1B8C43A100DA196C /* DeviceInfo.m */; };
 		535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC11B8C692100DA196C /* EPCardInfoViewController.m */; };
@@ -47,13 +47,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C1B97521F136F3E00E26846 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasedApi.h; path = sdk/api/BasedApi.h; sourceTree = SOURCE_ROOT; };
+		2C1B97531F136F3E00E26846 /* BasedApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasedApi.m; path = sdk/api/BasedApi.m; sourceTree = SOURCE_ROOT; };
+		2C1B97551F136F7E00E26846 /* EPMerchantApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantApi.h; path = sdk/api/EPMerchantApi.h; sourceTree = SOURCE_ROOT; };
+		2C1B97561F136F7E00E26846 /* EPMerchantApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantApi.m; path = sdk/api/EPMerchantApi.m; sourceTree = SOURCE_ROOT; };
+		2C1B97581F136F8C00E26846 /* EPEncryptedPaymentInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPEncryptedPaymentInstrument.h; path = sdk/model/EPEncryptedPaymentInstrument.h; sourceTree = SOURCE_ROOT; };
+		2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPEncryptedPaymentInstrument.m; path = sdk/model/EPEncryptedPaymentInstrument.m; sourceTree = SOURCE_ROOT; };
+		2C1B975A1F136F8C00E26846 /* EPMerchantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantInfo.h; path = sdk/model/EPMerchantInfo.h; sourceTree = SOURCE_ROOT; };
+		2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantInfo.m; path = sdk/model/EPMerchantInfo.m; sourceTree = SOURCE_ROOT; };
 		2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		31821485843FB1723D033064 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPMerchantInfo.m; sourceTree = "<group>"; };
-		31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPEncryptedPaymentInstrument.m; sourceTree = "<group>"; };
-		31821754BDB075A2B395FA08 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasedApi.h; sourceTree = "<group>"; };
-		318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPMerchantInfo.h; sourceTree = "<group>"; };
-		31821BA02C198030903145E9 /* EPEncryptedPaymentInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPEncryptedPaymentInstrument.h; sourceTree = "<group>"; };
-		31821E3B9E6915549577A09C /* BasedApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasedApi.m; sourceTree = "<group>"; };
 		535F0B601B8AFA2100DA196C /* everyPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = everyPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		535F0B641B8AFA2100DA196C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		535F0B651B8AFA2100DA196C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,8 +81,6 @@
 		535F0BAA1B8B36E100DA196C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../sdk/Constants.m; sourceTree = "<group>"; };
 		535F0BB01B8B3CFD00DA196C /* EPApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPApi.h; path = ../sdk/api/EPApi.h; sourceTree = "<group>"; };
 		535F0BB11B8B3CFD00DA196C /* EPApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPApi.m; path = ../sdk/api/EPApi.m; sourceTree = "<group>"; };
-		535F0BB31B8B424400DA196C /* EPMerchantApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantApi.h; path = ../sdk/api/EPMerchantApi.h; sourceTree = "<group>"; };
-		535F0BB41B8B424400DA196C /* EPMerchantApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantApi.m; path = ../sdk/api/EPMerchantApi.m; sourceTree = "<group>"; };
 		535F0BB61B8B591500DA196C /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Additions.h"; path = "../sdk/category/NSDate+Additions.h"; sourceTree = "<group>"; };
 		535F0BB71B8B591500DA196C /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "../sdk/category/NSDate+Additions.m"; sourceTree = "<group>"; };
 		535F0BB91B8C43A100DA196C /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInfo.h; path = ../sdk/utility/DeviceInfo.h; sourceTree = "<group>"; };
@@ -199,12 +199,12 @@
 		535F0B8F1B8AFC5F00DA196C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2C1B97581F136F8C00E26846 /* EPEncryptedPaymentInstrument.h */,
+				2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */,
+				2C1B975A1F136F8C00E26846 /* EPMerchantInfo.h */,
+				2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */,
 				535F0B901B8AFCB600DA196C /* EPCard.h */,
 				535F0B911B8AFCB600DA196C /* EPCard.m */,
-				31821485843FB1723D033064 /* EPMerchantInfo.m */,
-				318217E8F54D4CD8C5AD4DD8 /* EPMerchantInfo.h */,
-				31821713AE38240904C7BBD1 /* EPEncryptedPaymentInstrument.m */,
-				31821BA02C198030903145E9 /* EPEncryptedPaymentInstrument.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -236,12 +236,12 @@
 		535F0BAC1B8B37D700DA196C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				2C1B97551F136F7E00E26846 /* EPMerchantApi.h */,
+				2C1B97561F136F7E00E26846 /* EPMerchantApi.m */,
+				2C1B97521F136F3E00E26846 /* BasedApi.h */,
+				2C1B97531F136F3E00E26846 /* BasedApi.m */,
 				535F0BB01B8B3CFD00DA196C /* EPApi.h */,
 				535F0BB11B8B3CFD00DA196C /* EPApi.m */,
-				535F0BB31B8B424400DA196C /* EPMerchantApi.h */,
-				535F0BB41B8B424400DA196C /* EPMerchantApi.m */,
-				31821E3B9E6915549577A09C /* BasedApi.m */,
-				31821754BDB075A2B395FA08 /* BasedApi.h */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -364,22 +364,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				535F0B8D1B8AFADF00DA196C /* ViewController.m in Sources */,
-				535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */,
 				535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */,
+				2C1B97541F136F3E00E26846 /* BasedApi.m in Sources */,
+				2C1B975C1F136F8C00E26846 /* EPEncryptedPaymentInstrument.m in Sources */,
 				535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */,
 				535F0B661B8AFA2100DA196C /* main.m in Sources */,
 				535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */,
+				2C1B97571F136F7E00E26846 /* EPMerchantApi.m in Sources */,
 				535F0BB81B8B591500DA196C /* NSDate+Additions.m in Sources */,
 				535F0BAB1B8B36E100DA196C /* Constants.m in Sources */,
 				535F0B961B8B083200DA196C /* NSString+Additions.m in Sources */,
 				535F0B921B8AFCB600DA196C /* EPCard.m in Sources */,
+				2C1B975D1F136F8C00E26846 /* EPMerchantInfo.m in Sources */,
 				AEFE95391D228CB300A91BF2 /* EPAuthenticationWebViewController.m in Sources */,
 				535F0BB21B8B3CFD00DA196C /* EPApi.m in Sources */,
 				535F0B9D1B8B166C00DA196C /* NSError+Additions.m in Sources */,
 				535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */,
-				31821623416588276EDCCC4C /* EPMerchantInfo.m in Sources */,
-				318217131125E79EBD845E3A /* BasedApi.m in Sources */,
-				31821ABD8593F993069460D0 /* EPEncryptedPaymentInstrument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
