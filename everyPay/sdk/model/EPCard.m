@@ -29,7 +29,7 @@ NSString *const kKeyCardName = @"cc_holder_name";
 
 @implementation EPCard
 
-- (id)initWithName:(NSString *)name number:(NSString *)number expirationYear:(NSUInteger)expirationYear expirationMonth:(NSUInteger)expirationMonth andCVC:(NSString *)cvc {
+- (id)initWithName:(NSString *)name number:(NSString *)number expirationYear:(NSInteger)expirationYear expirationMonth:(NSInteger)expirationMonth andCVC:(NSString *)cvc {
     NSDate *expirationDate = [NSDate dateWithYear:expirationYear andMonth:expirationMonth];
     return [self initWithName:name number:number expirationDate:expirationDate andCVC:cvc];
 }
