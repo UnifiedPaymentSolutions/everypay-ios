@@ -28,6 +28,8 @@ extern NSString *const kKeyCardName;
  @return new Card object.
  
  */
+- (id)initWithName:(NSString *)name number:(NSString *)number expirationYear:(NSUInteger)expirationYear expirationMonth:(NSUInteger)expirationMonth andCVC:(NSString *)cvc;
+
 - (id)initWithName:(NSString *)name number:(NSString *)number expirationDate:(NSDate *)expirationDate andCVC:(NSString *)cvc;
 
 /**
