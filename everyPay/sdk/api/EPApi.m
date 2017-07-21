@@ -129,7 +129,8 @@ NSString *const kKeyApiVersion = @"api_version";
     NSURLComponents *components = [NSURLComponents new];
     [components setScheme:@"https"];
     [components setHost:self.url.host];
-    [components setPath:[NSString stringWithFormat:@"%@/%@", merchantInfo.path, encryptedPaymentInstrument.paymentReference]];
+//    TODO: ask EveryPay about merchantInfo.path ?
+    [components setPath:[NSString stringWithFormat:@"%@/%@", @"encrypted_payment_instruments", encryptedPaymentInstrument.paymentReference]];
     [components setQueryItems:@[mobile3DsHmac, apiVer]];
     return [components URL];
 }
