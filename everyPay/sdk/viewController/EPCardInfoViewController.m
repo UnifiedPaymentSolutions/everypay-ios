@@ -38,10 +38,10 @@ const NSInteger kMaxYear = 2022;
 
     // Add sample card data to fields
     [self.name setText:@"Tom Smith"];
-    [self.number setText:@"5168832136360487"];
-    [self.cvc setText:@"119"];
+    [self.number setText:@"5168830791685081"];
+    [self.cvc setText:@"790"];
     
-    NSDate *date = [NSDate dateWithYear:2018 andMonth:10];
+    NSDate *date = [NSDate dateWithYear:2019 andMonth:7];
     self.selectedDate = date;
     NSString *dateString = [date expirationString];
     [self.expiration setText:dateString];
