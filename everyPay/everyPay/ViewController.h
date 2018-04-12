@@ -7,10 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EPCardInfoViewController.h"
-#import "EPAuthenticationWebViewController.h"
 
-@interface ViewController : UIViewController <EPCardInfoViewControllerDelegate, EPAuthenticationWebViewControllerDelegate>
-@property (nonatomic, copy) NSString *merchantApiBaseUrl;
-@property (nonatomic, copy) NSString *everypayApiBaseUrl;
+@interface ViewController : UIViewController
 @end

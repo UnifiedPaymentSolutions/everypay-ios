@@ -8,6 +8,7 @@
 
 #import "EPCardInfoViewController.h"
 #import "NSDate+Additions.h"
+#import "EPCard.h"
 
 @interface EPCardInfoViewController ()
 

@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1B97541F136F3E00E26846 /* BasedApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97531F136F3E00E26846 /* BasedApi.m */; };
+		2C1B97571F136F7E00E26846 /* EPMerchantApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97561F136F7E00E26846 /* EPMerchantApi.m */; };
+		2C1B975C1F136F8C00E26846 /* EPEncryptedPaymentInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */; };
+		2C1B975D1F136F8C00E26846 /* EPMerchantInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */; };
+		2C547EA81F0BAE3E001207AC /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */; };
 		535F0B661B8AFA2100DA196C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B651B8AFA2100DA196C /* main.m */; };
 		535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B681B8AFA2100DA196C /* AppDelegate.m */; };
 		535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B701B8AFA2100DA196C /* Images.xcassets */; };
 		535F0B801B8AFA2200DA196C /* everyPayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B7F1B8AFA2200DA196C /* everyPayTests.m */; };
 		535F0B8D1B8AFADF00DA196C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B8B1B8AFADF00DA196C /* ViewController.m */; };
-		535F0B8E1B8AFADF00DA196C /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 535F0B8C1B8AFADF00DA196C /* ViewController.xib */; };
 		535F0B921B8AFCB600DA196C /* EPCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B911B8AFCB600DA196C /* EPCard.m */; };
 		535F0B961B8B083200DA196C /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B951B8B083200DA196C /* NSString+Additions.m */; };
 		535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0B991B8B0C4900DA196C /* Luhn.m */; };
@@ -22,15 +26,12 @@
 		535F0BA81B8B2DBC00DA196C /* cardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BA71B8B2DBC00DA196C /* cardTests.m */; };
 		535F0BAB1B8B36E100DA196C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BAA1B8B36E100DA196C /* Constants.m */; };
 		535F0BB21B8B3CFD00DA196C /* EPApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB11B8B3CFD00DA196C /* EPApi.m */; };
-		535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB41B8B424400DA196C /* EPMerchantApi.m */; };
 		535F0BB81B8B591500DA196C /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BB71B8B591500DA196C /* NSDate+Additions.m */; };
 		535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BBA1B8C43A100DA196C /* DeviceInfo.m */; };
-		535F0BBE1B8C5D1900DA196C /* ErrorExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */; };
 		535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC11B8C692100DA196C /* EPCardInfoViewController.m */; };
 		535F0BC41B8C692100DA196C /* EPCardInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 535F0BC21B8C692100DA196C /* EPCardInfoViewController.xib */; };
 		535F0BC61B8C951900DA196C /* stringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC51B8C951900DA196C /* stringTests.m */; };
 		535F0BC81B8C97BD00DA196C /* dateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 535F0BC71B8C97BD00DA196C /* dateTests.m */; };
-		AEA78A6F1D6D97B400FB923E /* EPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AEA78A6E1D6D97B400FB923E /* EPSession.m */; };
 		AEFE95391D228CB300A91BF2 /* EPAuthenticationWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEFE95371D228CB300A91BF2 /* EPAuthenticationWebViewController.m */; };
 		AEFE953A1D228CB300A91BF2 /* EPAuthenticationWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEFE95381D228CB300A91BF2 /* EPAuthenticationWebViewController.xib */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C1B97521F136F3E00E26846 /* BasedApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasedApi.h; path = sdk/api/BasedApi.h; sourceTree = SOURCE_ROOT; };
+		2C1B97531F136F3E00E26846 /* BasedApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasedApi.m; path = sdk/api/BasedApi.m; sourceTree = SOURCE_ROOT; };
+		2C1B97551F136F7E00E26846 /* EPMerchantApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantApi.h; path = sdk/api/EPMerchantApi.h; sourceTree = SOURCE_ROOT; };
+		2C1B97561F136F7E00E26846 /* EPMerchantApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantApi.m; path = sdk/api/EPMerchantApi.m; sourceTree = SOURCE_ROOT; };
+		2C1B97581F136F8C00E26846 /* EPEncryptedPaymentInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPEncryptedPaymentInstrument.h; path = sdk/model/EPEncryptedPaymentInstrument.h; sourceTree = SOURCE_ROOT; };
+		2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPEncryptedPaymentInstrument.m; path = sdk/model/EPEncryptedPaymentInstrument.m; sourceTree = SOURCE_ROOT; };
+		2C1B975A1F136F8C00E26846 /* EPMerchantInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantInfo.h; path = sdk/model/EPMerchantInfo.h; sourceTree = SOURCE_ROOT; };
+		2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantInfo.m; path = sdk/model/EPMerchantInfo.m; sourceTree = SOURCE_ROOT; };
+		2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		535F0B601B8AFA2100DA196C /* everyPay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = everyPay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		535F0B641B8AFA2100DA196C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		535F0B651B8AFA2100DA196C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -57,7 +67,6 @@
 		535F0B7F1B8AFA2200DA196C /* everyPayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = everyPayTests.m; sourceTree = "<group>"; };
 		535F0B8A1B8AFADF00DA196C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		535F0B8B1B8AFADF00DA196C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		535F0B8C1B8AFADF00DA196C /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		535F0B901B8AFCB600DA196C /* EPCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPCard.h; path = ../sdk/model/EPCard.h; sourceTree = "<group>"; };
 		535F0B911B8AFCB600DA196C /* EPCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPCard.m; path = ../sdk/model/EPCard.m; sourceTree = "<group>"; };
 		535F0B951B8B083200DA196C /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "../sdk/category/NSString+Additions.m"; sourceTree = "<group>"; };
@@ -72,22 +81,16 @@
 		535F0BAA1B8B36E100DA196C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../sdk/Constants.m; sourceTree = "<group>"; };
 		535F0BB01B8B3CFD00DA196C /* EPApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPApi.h; path = ../sdk/api/EPApi.h; sourceTree = "<group>"; };
 		535F0BB11B8B3CFD00DA196C /* EPApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPApi.m; path = ../sdk/api/EPApi.m; sourceTree = "<group>"; };
-		535F0BB31B8B424400DA196C /* EPMerchantApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPMerchantApi.h; path = ../sdk/api/EPMerchantApi.h; sourceTree = "<group>"; };
-		535F0BB41B8B424400DA196C /* EPMerchantApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPMerchantApi.m; path = ../sdk/api/EPMerchantApi.m; sourceTree = "<group>"; };
 		535F0BB61B8B591500DA196C /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Additions.h"; path = "../sdk/category/NSDate+Additions.h"; sourceTree = "<group>"; };
 		535F0BB71B8B591500DA196C /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "../sdk/category/NSDate+Additions.m"; sourceTree = "<group>"; };
 		535F0BB91B8C43A100DA196C /* DeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceInfo.h; path = ../sdk/utility/DeviceInfo.h; sourceTree = "<group>"; };
 		535F0BBA1B8C43A100DA196C /* DeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceInfo.m; path = ../sdk/utility/DeviceInfo.m; sourceTree = "<group>"; };
-		535F0BBC1B8C5D1900DA196C /* ErrorExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ErrorExtractor.h; path = ../sdk/utility/ErrorExtractor.h; sourceTree = "<group>"; };
-		535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ErrorExtractor.m; path = ../sdk/utility/ErrorExtractor.m; sourceTree = "<group>"; };
 		535F0BC01B8C692100DA196C /* EPCardInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPCardInfoViewController.h; path = ../sdk/viewController/EPCardInfoViewController.h; sourceTree = "<group>"; };
 		535F0BC11B8C692100DA196C /* EPCardInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPCardInfoViewController.m; path = ../sdk/viewController/EPCardInfoViewController.m; sourceTree = "<group>"; };
 		535F0BC21B8C692100DA196C /* EPCardInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EPCardInfoViewController.xib; path = ../sdk/viewController/EPCardInfoViewController.xib; sourceTree = "<group>"; };
 		535F0BC51B8C951900DA196C /* stringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stringTests.m; sourceTree = "<group>"; };
 		535F0BC71B8C97BD00DA196C /* dateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dateTests.m; sourceTree = "<group>"; };
 		535F0BC91B8DC12E00DA196C /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
-		AEA78A6D1D6D97B400FB923E /* EPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPSession.h; path = sdk/utility/EPSession.h; sourceTree = SOURCE_ROOT; };
-		AEA78A6E1D6D97B400FB923E /* EPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPSession.m; path = sdk/utility/EPSession.m; sourceTree = SOURCE_ROOT; };
 		AEFE95361D228CB300A91BF2 /* EPAuthenticationWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EPAuthenticationWebViewController.h; path = sdk/viewController/EPAuthenticationWebViewController.h; sourceTree = SOURCE_ROOT; };
 		AEFE95371D228CB300A91BF2 /* EPAuthenticationWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EPAuthenticationWebViewController.m; path = sdk/viewController/EPAuthenticationWebViewController.m; sourceTree = SOURCE_ROOT; };
 		AEFE95381D228CB300A91BF2 /* EPAuthenticationWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EPAuthenticationWebViewController.xib; path = sdk/viewController/EPAuthenticationWebViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -141,7 +144,7 @@
 				535F0B631B8AFA2100DA196C /* Supporting Files */,
 				535F0B8A1B8AFADF00DA196C /* ViewController.h */,
 				535F0B8B1B8AFADF00DA196C /* ViewController.m */,
-				535F0B8C1B8AFADF00DA196C /* ViewController.xib */,
+				2C547EA71F0BAE3E001207AC /* Storyboard.storyboard */,
 			);
 			name = everyPayDemo;
 			path = everyPay;
@@ -196,6 +199,10 @@
 		535F0B8F1B8AFC5F00DA196C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2C1B97581F136F8C00E26846 /* EPEncryptedPaymentInstrument.h */,
+				2C1B97591F136F8C00E26846 /* EPEncryptedPaymentInstrument.m */,
+				2C1B975A1F136F8C00E26846 /* EPMerchantInfo.h */,
+				2C1B975B1F136F8C00E26846 /* EPMerchantInfo.m */,
 				535F0B901B8AFCB600DA196C /* EPCard.h */,
 				535F0B911B8AFCB600DA196C /* EPCard.m */,
 			);
@@ -222,10 +229,6 @@
 				535F0B991B8B0C4900DA196C /* Luhn.m */,
 				535F0BB91B8C43A100DA196C /* DeviceInfo.h */,
 				535F0BBA1B8C43A100DA196C /* DeviceInfo.m */,
-				535F0BBC1B8C5D1900DA196C /* ErrorExtractor.h */,
-				535F0BBD1B8C5D1900DA196C /* ErrorExtractor.m */,
-				AEA78A6D1D6D97B400FB923E /* EPSession.h */,
-				AEA78A6E1D6D97B400FB923E /* EPSession.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -233,10 +236,12 @@
 		535F0BAC1B8B37D700DA196C /* API */ = {
 			isa = PBXGroup;
 			children = (
+				2C1B97551F136F7E00E26846 /* EPMerchantApi.h */,
+				2C1B97561F136F7E00E26846 /* EPMerchantApi.m */,
+				2C1B97521F136F3E00E26846 /* BasedApi.h */,
+				2C1B97531F136F3E00E26846 /* BasedApi.m */,
 				535F0BB01B8B3CFD00DA196C /* EPApi.h */,
 				535F0BB11B8B3CFD00DA196C /* EPApi.m */,
-				535F0BB31B8B424400DA196C /* EPMerchantApi.h */,
-				535F0BB41B8B424400DA196C /* EPMerchantApi.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -303,10 +308,11 @@
 				TargetAttributes = {
 					535F0B5F1B8AFA2100DA196C = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 4YJSF2LF24;
+						DevelopmentTeam = A6275XZ9FH;
 					};
 					535F0B781B8AFA2200DA196C = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = A6275XZ9FH;
 						TestTargetID = 535F0B5F1B8AFA2100DA196C;
 					};
 				};
@@ -336,10 +342,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				535F0BC41B8C692100DA196C /* EPCardInfoViewController.xib in Resources */,
-				535F0B8E1B8AFADF00DA196C /* ViewController.xib in Resources */,
 				535F0BA01B8B269A00DA196C /* Localizable.strings in Resources */,
 				535F0B711B8AFA2100DA196C /* Images.xcassets in Resources */,
 				AEFE953A1D228CB300A91BF2 /* EPAuthenticationWebViewController.xib in Resources */,
+				2C547EA81F0BAE3E001207AC /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,21 +364,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				535F0B8D1B8AFADF00DA196C /* ViewController.m in Sources */,
-				535F0BB51B8B424400DA196C /* EPMerchantApi.m in Sources */,
 				535F0B691B8AFA2100DA196C /* AppDelegate.m in Sources */,
-				535F0BBE1B8C5D1900DA196C /* ErrorExtractor.m in Sources */,
+				2C1B97541F136F3E00E26846 /* BasedApi.m in Sources */,
+				2C1B975C1F136F8C00E26846 /* EPEncryptedPaymentInstrument.m in Sources */,
 				535F0BBB1B8C43A100DA196C /* DeviceInfo.m in Sources */,
 				535F0B661B8AFA2100DA196C /* main.m in Sources */,
 				535F0BC31B8C692100DA196C /* EPCardInfoViewController.m in Sources */,
+				2C1B97571F136F7E00E26846 /* EPMerchantApi.m in Sources */,
 				535F0BB81B8B591500DA196C /* NSDate+Additions.m in Sources */,
 				535F0BAB1B8B36E100DA196C /* Constants.m in Sources */,
 				535F0B961B8B083200DA196C /* NSString+Additions.m in Sources */,
 				535F0B921B8AFCB600DA196C /* EPCard.m in Sources */,
+				2C1B975D1F136F8C00E26846 /* EPMerchantInfo.m in Sources */,
 				AEFE95391D228CB300A91BF2 /* EPAuthenticationWebViewController.m in Sources */,
 				535F0BB21B8B3CFD00DA196C /* EPApi.m in Sources */,
 				535F0B9D1B8B166C00DA196C /* NSError+Additions.m in Sources */,
 				535F0B9A1B8B0C4900DA196C /* Luhn.m in Sources */,
-				AEA78A6F1D6D97B400FB923E /* EPSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +507,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				INFOPLIST_FILE = everyPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -515,6 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				INFOPLIST_FILE = everyPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -528,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -548,6 +558,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = A6275XZ9FH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

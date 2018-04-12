@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EPCard.h"
+
+@class EPCard;
 
 /**
  EPCardInfoViewControllerDelegate provides data from card info input viewcontroller.

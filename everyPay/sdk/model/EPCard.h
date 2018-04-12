@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kKeyCardNumber;
+extern NSString *const kKeyCardCVC;
+extern NSString *const kKeyCardYear;
+extern NSString *const kKeyCardMonth;
+extern NSString *const kKeyCardName;
+
 @interface EPCard : NSObject
 
 /**
@@ -22,6 +28,8 @@
  @return new Card object.
  
  */
+- (id)initWithName:(NSString *)name number:(NSString *)number expirationYear:(NSInteger)expirationYear expirationMonth:(NSInteger)expirationMonth andCVC:(NSString *)cvc;
+
 - (id)initWithName:(NSString *)name number:(NSString *)number expirationDate:(NSDate *)expirationDate andCVC:(NSString *)cvc;
 
 /**
@@ -49,6 +57,6 @@
 /** 
  Return card info in dictionary form suitable for API input
  */
-- (NSDictionary *)cardInfoDictionary;
+- (NSDictionary *)toDictionary;
 
 @end
