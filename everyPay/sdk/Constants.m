@@ -20,7 +20,7 @@ NSString *const kEveryPayApiLiveHost = @"gw.every-pay.eu";
 
 NSString *const kBrowserFlowEndURLPrefixStating = @"https://gw-staging.every-pay.com/authentication3ds";
 NSString *const kBrowserFlowEndURLPrefixDemo = @"https://gw-demo.every-pay.com/authentication3ds";
-NSString *const kBrowserFlowEndURLPrefixLive = @"https://gw.every-pay.com/authentication3ds";
+NSString *const kBrowserFlowEndURLPrefixLive = @"https://gw.every-pay.eu/authentication3ds";
 NSString *const kBrowserFlowInitURL = @"https://gw-staging.every-pay.com/authentication3ds/new";
 NSString *const kPaymentState = @"payment_state";
 NSString *const kAuthorised = @"authorised";
