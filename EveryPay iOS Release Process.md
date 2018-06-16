@@ -22,9 +22,13 @@ Additional labels for pre-release and build metadata are available as extensions
 ## B. Getting SDK to git repo and to cocoaPods
 - 1) Modify everyPay-ios.podspec file line : s.version = "MAJOR.MINOR.PATCH"
 - 2) After locally confirmed that everything works push your changes to git repo master branch. NB! Make sure that modified .podspec file gets pushed
-- 3) Make new release and tag it with same version number specified in .podspec file.
-- 4) Run `pod lib lint` to verifiy that podspec is correct.
+- 3) Run `pod lib lint` to verifiy that podspec is correct.
+- 4) Make new release and tag it with same version number specified in .podspec file.
 - 5) If podspec is verified then run `pod trunk push everyPay-ios.podspec`
+- 5.1) You might get the following error 'You need to register a session first.'
+- 5.2) Run `pod trunk register youremail@example.com 'Your Name'`
+- 5.3) Verify the session by clicking the link on email sent to specified mail address
+- 5.4) Run `pod trunk push everyPay-ios.podspec`
 - 6) Wait until terminal says that pod is uploaded
 
 
