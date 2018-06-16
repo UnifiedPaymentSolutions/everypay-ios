@@ -16,7 +16,7 @@
  
  @param name name on Card. Spaces from beginning and end of name are removed.
  @param number Card number. All non-numeric symbols are removed.
- @param date Card expiration date
+ @param expirationDate Card expiration date
  @param cvc Card verification code. All non-numeric symbols are removed.
  
  @return new Card object.
