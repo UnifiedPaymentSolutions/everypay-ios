@@ -25,7 +25,6 @@
     [super viewDidLoad];
     [self setTitle:@"3Ds authentication"];
     NSURL *url = [self buildInitURLForWebViewWithPaymentReference:_paymentReference secureCodeOne:_secureCodeOne hmac:_hmac];
-    NSLog(@"webView URL %@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView setDelegate:self];
     [self.webView loadRequest:request];
@@ -57,7 +56,6 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *urlString = request.URL.absoluteString;
     
-    NSLog(@"url: %@, scheme: %@, relativePath: %@, relativeString: %@", request.URL.absoluteString, request.URL.scheme, request.URL.relativePath, request.URL.relativeString);
     if([self isBrowserFlowEndUrlWithUrlString:urlString]){
         [self setIsBrowserFlowEndUrlReached:YES];
         if ([self isBrowerFlowSuccessfulWithUrlString:urlString]) {

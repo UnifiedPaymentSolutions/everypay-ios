@@ -53,11 +53,8 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
 
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
     
-    NSLog(@"Start request %@\n", request);
-    NSLog(@"Encrypted payment instruments request body %@\n", requestDictionary);
     
     NSURLSessionUploadTask *uploadTask = [self.urlSession uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
@@ -71,27 +68,8 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSArray *errors = [ErrorExtractor errorsFromDictionary:responseDictionary];
                     if ([errors count] > 0) {
-                        NSLog(@"Error processing payment: %@", errors);
                         failure(errors);
                     } else {
-                        /** 
-                         Response dictionary for non 3Ds response:
-                         {
-                            "encrypted_payment_instrument" = {
-                                "cc_token_encrypted" = "QEVuQwBAEAAcXJQdBNP2fcVbANPoc+KdE9flBsC4O8hZQPut4MLjMKAVjTt9JDI8eqTpYiDH9dE=-1440501330";
-                                "payment_state" = "authorised"
-                            };
-                         }
-                         
-                         Response dictionary for 3Ds response:
-                            "encrypted_payment_instrument": {
-                                "payment_reference":"0aa6409492f358da0fb6d9b821ce6ca4a5609073489dcaf3456023cafca96efa",
-                                "payment_state":"waiting_for_3ds_response",
-                                "secure_code_one":"XyIfP0b7giwcJma24axOaQt2m96F/ThG62Ptd5rsX4Bj7tSAM/pfgD"
-                            }
-
-                         */
-                        NSLog(@"Encrypted payment instruments response %@", responseDictionary);
                         NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }
@@ -114,7 +92,6 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[components URL]];
     request.HTTPMethod = @"GET";
     NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error){
-        NSLog(@"Request completed with response\n %@", response);
         if (error) {
             failure(@[error]);
         } else {
@@ -131,7 +108,6 @@ NSString *const kSendCardDetailsPath = @"encrypted_payment_instruments";
                         NSLog(@"Error processing payment: %@", errors);
                         failure(errors);
                     } else {
-                        NSLog(@"Encrypted payment instruments  confirmed response %@", responseDictionary);
                         NSDictionary *instruments = [responseDictionary objectForKey:kKeyEncryptedPaymentInstrument];
                         success(instruments);
                     }

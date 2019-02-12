@@ -26,17 +26,12 @@ NSString *const kAccountId = @"account_id";
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     request.HTTPMethod = @"POST";
 
-    NSLog(@"Start request %@\n", request);
 
     NSMutableDictionary *requestDictionary = [[NSMutableDictionary alloc] init];
     [requestDictionary setValue:apiVersion forKey:kApiVersion];
     [requestDictionary setValue:accountId forKey: kAccountId];
     NSData *requestData = [EPMerchantApi convertToDataWithDictionary:requestDictionary];
-    NSLog(@"Request body %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
     NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSLog(@"Request completed with response\n %@", response);
-
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 failure(error);
@@ -44,7 +39,6 @@ NSString *const kAccountId = @"account_id";
         } else {
             NSError *jsonParsingError;
             NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonParsingError];
-            NSLog(@" Get Merchant Data Response body %@", responseDictionary);
             dispatch_async(dispatch_get_main_queue(), ^{
                 success(responseDictionary);
             });
@@ -61,17 +55,13 @@ NSString *const kAccountId = @"account_id";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
-    NSLog(@"Start request %@\n", request);
     
     NSString *hmac = [merchantInfo objectForKey:kKeyHmac];
     NSDictionary *requestDictionary = @{kKeyHmac: hmac, kKeyEncryptedToken: token};
     NSError *jsonConversionError = nil;
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestDictionary options:kNilOptions error:&jsonConversionError];
-    NSLog(@"Request body %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
     NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:requestData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        NSLog(@"Request completed with response\n %@", response);
         
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -80,7 +70,6 @@ NSString *const kAccountId = @"account_id";
         } else {
             NSError *jsonParsingError;
             NSDictionary *responseDictionary = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonParsingError];
-            NSLog(@" Send payment response body %@",requestDictionary);
             dispatch_async(dispatch_get_main_queue(), ^{
                 success(responseDictionary);
             });
