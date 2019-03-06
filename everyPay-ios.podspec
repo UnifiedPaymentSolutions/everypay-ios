@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "everyPay-ios"
-  s.version      = "1.0.11"
+  s.version      = "1.0.12-beta"
   s.summary      = "iOS SDK for EveryPay service."
 
   s.description  = <<-DESC
